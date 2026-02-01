@@ -11,6 +11,7 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [sportsOpen, setSportsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  console.log(scrolled);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);
@@ -19,9 +20,9 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     {
       name: "Sports",
-      href: "/works-preview",
+      href: "/sports",
       sports: [
-        { name: "Football", href: "/works-preview" },
+        { name: "Football", href: "/sports" },
         { name: "Lacrosse", href: "/sports/lacrosse" },
         { name: "Soccer", href: "/sports/soccer" },
         { name: "Volleyball", href: "/sports/volleyball" },
@@ -89,7 +90,7 @@ export default function Navbar() {
       className={` top-0 left-0 w-full z-50 transition-all duration-700 bg-white text-black sticky shadow-md
   `}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center h-[72px]">
+      <div className="container mx-auto px-6 flex justify-between items-center h-18">
         {/* Logo */}
         <Link href="/" className="text-4xl font-bold tracking-wide flex ">
           <Image

@@ -20,7 +20,7 @@ export default function Button(props: ButtonProps) {
     "inline-flex items-center justify-center  rounded-md transition duration-200 focus:outline-none";
 
   const variants = {
-    primary: "bg-orange-600 text-white hover:bg-blue-700",
+    primary: "bg-orange-600 text-white hover:bg-gray-700  border-bg-orange-600 hover:border-gray-200  ",
     secondary: "border text-white hover:bg-gray-800",
     outline: "border border-white text-white hover:bg-white hover:text-black",
   } as const;
@@ -33,7 +33,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className} `}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className} cursor-pointer`}
       {...rest}
     >
       {children}
