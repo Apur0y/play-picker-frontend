@@ -2,7 +2,7 @@
 import { useGetAllSportsQuery } from "@/redux/api/sports/sportsApis";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, Suspense } from "react";
 
 type Video = {
   id: number;
@@ -20,8 +20,7 @@ type Sport = {
   src: string;
 };
 
-
-export default function Page() {
+function SportsPageContent() {
   const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
   const searchParams = useSearchParams();
   const sportParam = searchParams.get("sport");
@@ -182,5 +181,13 @@ export default function Page() {
         </section>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SportsPageContent />
+    </Suspense>
   );
 }

@@ -18,7 +18,7 @@ const authApi = baseUrlApi.injectEndpoints({
       }),
     }),
     updateTour: build.mutation({
-      query: ({ id, tourData }: { id: string; tourData: any }) => ({
+      query: ({ id, tourData }: { id: string; tourData: unknown }) => ({
         url: `/tours/update/${id}`,
         method: "PATCH",
         body: tourData,
