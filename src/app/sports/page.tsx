@@ -1,6 +1,7 @@
 "use client";
 import { useGetAllSportsQuery } from "@/redux/api/sports/sportsApis";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useMemo } from "react";
 
 type Video = {
@@ -21,11 +22,15 @@ type Sport = {
 
 
 export default function Page() {
-  const [selectedSport, setSelectedSport] = useState("All");
   const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
+  const searchParams = useSearchParams();
+  const sportParam = searchParams.get("sport");
+  const [selectedSport, setSelectedSport] = useState(sportParam || "All");
 
   const { data: allsports } = useGetAllSportsQuery({});
   console.log(allsports);
+
+
 
   const videos: Video[] = useMemo(
     () =>
@@ -57,18 +62,20 @@ export default function Page() {
     ];
   }, [staticTypes, videos]);
 
-  const filteredVideos =
-    selectedSport === "All"
-      ? videos
-      : videos.filter(
-          (v) => v.type.toLowerCase() === selectedSport.toLowerCase(),
-        );
+ const filteredVideos =
+  !sportParam || sportParam.toLowerCase() === "all"
+    ? videos
+    : videos.filter(v => v.type.toLowerCase() === sportParam.toLowerCase());
 
   useEffect(() => {
     if (videos.length && !currentVideo) {
       setCurrentVideo(videos[0]);
     }
-  }, [videos, currentVideo]);
+    if (sportParam) {
+      const capitalizedSport = sportParam.charAt(0).toUpperCase() + sportParam.slice(1);
+      setSelectedSport(capitalizedSport);
+    }
+  }, [videos, currentVideo, sportParam]);
 
   return (
     <div className="w-full min-h-screen text-black">

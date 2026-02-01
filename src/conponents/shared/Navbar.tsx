@@ -21,13 +21,13 @@ export default function Navbar() {
     {
       name: "Sports",
       href: "/sports",
-      sports: [
-        { name: "Football", href: "/sports" },
-        { name: "Lacrosse", href: "/sports/lacrosse" },
-        { name: "Soccer", href: "/sports/soccer" },
-        { name: "Volleyball", href: "/sports/volleyball" },
-        { name: "Basketball", href: "/sports/basketball" },
-      ],
+     sports : [
+  { name: "Football", href: "/sports?sport=football" },
+  { name: "Lacrosse", href: "/sports?sport=lacrosse" },
+  { name: "Soccer", href: "/sports?sport=soccer" },
+  { name: "Volleyball", href: "/sports?sport=volleyball" },
+  { name: "Basketball", href: "/sports?sport=basketball" },
+],
     },
     { name: "Packages", href: "/packages" },
     { name: "About", href: "/about-us" },
