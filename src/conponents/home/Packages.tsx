@@ -15,13 +15,14 @@ export default function Packages() {
 
 
   const handleClick = (planName: string) => {
-    if (!user) {
-      router.push("/signIn");
-      return;
-    }
+    // if (!user) {
+    //   router.push("/signIn");
+    //   return;
+    // }
 
+    router.push(`/contact`);
     // You can modify this to go to checkout or another page
-    router.push(`/checkout/${planName}`);
+    // router.push(`/checkout/${planName}`);
   };
 
   return (

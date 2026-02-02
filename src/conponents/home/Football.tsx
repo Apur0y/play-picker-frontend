@@ -54,7 +54,8 @@ export default function FootballInfo() {
               }
               description="With tools, we help you find the right video faster and easier. Get matched with top position based on your skills and goals. Take control of your career path today."
               buttonText="Create Your Highlight"
-              // onButtonClick={() => alert("Button clicked!")}
+            //  onButtonClick={() => window.location.href = "/packages"}
+
              
               height={689}
               width={562}

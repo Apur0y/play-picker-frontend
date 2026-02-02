@@ -100,7 +100,7 @@ export default function InfoSection({
         </div>
 
      
-          <Link href="/create-account">
+          <Link href="/packages">
             <button
               onClick={onButtonClick}
               className="px-6 py-3 text-white font-semibold rounded bg-secondary flex bg-black cursor-pointer transition-all duration-300 group"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Package } from 'lucide-react';
 import { ConfigState } from '../CumtomizePackages';
+import Link from 'next/link';
 
 
 interface PackageSummaryProps {
@@ -159,10 +160,12 @@ const effectsCost = config.selectedEffects.reduce(
       </div>
 
       {/* CTA Button */}
+      <Link href={"/contact"}>
       <button className="w-full bg-gradient-to-r  from-orange-500 to-primary hover:from-orange-600 hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 cursor-pointer flex items-center justify-center gap-2 group">
         Continue Order
         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
       </button>
+      </Link>
 
       {/* Trust Badge */}
       <div className="mt-4 text-center text-xs text-slate-500">
