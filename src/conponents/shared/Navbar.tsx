@@ -21,13 +21,13 @@ export default function Navbar() {
     {
       name: "Sports",
       href: "/sports",
-     sports : [
-  { name: "Football", href: "/sports?sport=football" },
-  { name: "Lacrosse", href: "/sports?sport=lacrosse" },
-  { name: "Soccer", href: "/sports?sport=soccer" },
-  { name: "Volleyball", href: "/sports?sport=volleyball" },
-  { name: "Basketball", href: "/sports?sport=basketball" },
-],
+      sports: [
+        { name: "Football", href: "/sports?sport=football" },
+        { name: "Lacrosse", href: "/sports?sport=lacrosse" },
+        { name: "Soccer", href: "/sports?sport=soccer" },
+        { name: "Volleyball", href: "/sports?sport=volleyball" },
+        { name: "Basketball", href: "/sports?sport=basketball" },
+      ],
     },
     { name: "Packages", href: "/packages" },
     { name: "About", href: "/about-us" },
@@ -116,7 +116,6 @@ export default function Navbar() {
         <ul className="hidden md:flex gap-6 items-center font-poppins">
           {menuLinks.map((link, index) => (
             <li
-          
               key={link.name}
               className="relative uppercase text-sm font-medium flex items-center group"
             >
@@ -273,6 +272,7 @@ export default function Navbar() {
                             >
                               <Link
                                 href={sport.href}
+                                 onClick={() => setMenuOpen(false)}
                                 className="block px-4 py-2 border-b border-white/10 hover:text-orange-400 transition"
                               >
                                 {sport.name}
@@ -284,7 +284,11 @@ export default function Navbar() {
                     </AnimatePresence>
                   </>
                 ) : (
-                  <Link href={link.href} className="block py-2">
+                  <Link
+                    href={link.href}
+                    className="block py-2"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     {link.name}
                   </Link>
                 )}
@@ -296,7 +300,7 @@ export default function Navbar() {
     </nav>
   );
 }
-  //  ${
-  // scrolled
-  //   ? "md:bg-white md:text-black md:shadow-lg md:sticky"
-  //   : "md:absolute md:bg-transparent md:text-white md:shadow-none"}
+//  ${
+// scrolled
+//   ? "md:bg-white md:text-black md:shadow-lg md:sticky"
+//   : "md:absolute md:bg-transparent md:text-white md:shadow-none"}
