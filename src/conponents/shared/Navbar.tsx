@@ -37,7 +37,7 @@ export default function Navbar() {
 
   const profileLinks = [
     { name: "Dashboard", href: "/dashboard" },
-    { name: "Orders", href: "/orders" },
+    { name: "Orders", href: "/dashboard" },
     { name: "Settings", href: "/settings" },
     { name: "Logout", href: "/logout" },
   ];
