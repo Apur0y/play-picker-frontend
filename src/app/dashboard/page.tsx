@@ -16,7 +16,7 @@ export default function DashboardPage() {
         <div className="flex justify-between items-start mb-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="bg-gradient-to-br from-orange-600 to-orange-700 p-3 rounded-xl">
+              <div className="bg-gradient-to-br from-primary to-primary p-3 rounded-xl">
                 <LayoutDashboard className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-4xl font-bold text-gray-800">Dashboard</h1>
@@ -36,9 +36,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl p-8 text-white shadow-lg">
+        <div className=" rounded-2xl p-8 text-primary shadow-lg border">
           <h2 className="text-3xl font-bold mb-2">Welcome Back! 👋</h2>
-          <p className="text-orange-100">
+          <p className="text-orange-950">
             Manage your account and view your order history. Stay updated with your video production status.
           </p>
         </div>
