@@ -91,7 +91,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#0d1117] via-[#1a1f2e] to-[#0d1117] text-white p-6 relative overflow-hidden">
+    <section className="min-h-screen bg-linear-to-br from-[#0d1117] via-[#1a1f2e] to-[#0d1117] text-white p-6 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -117,7 +117,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 Let&lsquo;s Talk
               </h1>
               <p className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
@@ -146,7 +146,7 @@ export default function ContactPage() {
     "
                 >
                   {/* Glass highlight */}
-                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />
+                  <span className="absolute inset-0 rounded-2xl bg-linear-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />
 
                   <Calendar className="w-5 h-5 text-white" />
                   <span className="relative z-10">Book a Meeting</span>
