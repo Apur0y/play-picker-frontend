@@ -3,6 +3,8 @@ import { ArrowRight, Package } from "lucide-react";
 import { ConfigState } from "../CumtomizePackages";
 import Link from "next/link";
 import { useInitiatePaymentMutation } from "@/redux/api/paymment/paymentApi";
+import { toast } from "sonner";
+import DottedLoader from "@/conponents/Reuseable/DotLoader";
 
 interface PackageSummaryProps {
   config: ConfigState;
@@ -17,7 +19,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
     customerPhone: "",
   });
 
-  const [payment] = useInitiatePaymentMutation();
+  const [payment, {isLoading}] = useInitiatePaymentMutation();
 
   // Pricing calculation logic
   const calculatePrice = () => {
@@ -67,7 +69,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
     if (config.deliveryDays === 2) return "2 Days (Fast)";
     return "24 Hours (Express)";
   };
-  const handleOrder =async () => {
+  const handleOrder = async () => {
     if (formData.customerEmail == "" && formData.customerName == "") {
       setinfo(true);
       setError(true);
@@ -78,16 +80,18 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         amount: totalPrice,
         customerName: formData.customerName,
         customerEmail: formData.customerEmail,
-        customerPhone: formData.customerEmail,
+        customerPhone: formData.customerPhone,
       };
       setError(false);
       try {
-        const result=await payment(data).unwrap();
-        if(result.success){
+        const result = await payment(data).unwrap();
+        if (result.success) {
+          localStorage.setItem("transactionId", result.data.transactionId);
+          localStorage.setItem("sessionKey", result.data.sessionKey);
           window.location.href = result.data.url;
         }
       } catch (error) {
-        
+        toast.error(`${error}`)
       }
     }
   };
@@ -176,7 +180,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
                 className="w-full px-4 py-2 border rounded-lg text-black"
               />
               {error && (
-                <p className="text-red-600 text-sm">This field in required</p>
+                <p className="text-red-600 text-sm">This field are required</p>
               )}
             </div>
 
@@ -190,7 +194,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
                 className="w-full px-4 py-2 border rounded-lg text-black"
               />
               {error && (
-                <p className="text-red-600 text-sm">This field in required</p>
+                <p className="text-red-600 text-sm">This field are required</p>
               )}
             </div>
 
@@ -206,27 +210,22 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         )}
 
         {/* Additional Features */}
+        {/* Additional Features */}
         {config.additionalFeatures.length > 0 && (
-          <div>
-            <div className="font-semibold text-slate-900 mb-2">
+          <div className="mt-3">
+            <p className="text-xs font-medium text-slate-700 mb-2">
               Additional Features
-            </div>
-            <ul className="space-y-1">
+            </p>
+
+            <ul className="flex flex-col lg:flex-row lg:flex-wrap gap-1 lg:gap-4 text-xs text-slate-600">
               {config.additionalFeatures.map((feature) => {
                 const featureNames: { [key: string]: string } = {
                   intro: "Intro Page",
                   transitions: "Smooth Transitions",
                   music: "Background Music",
                 };
-                return (
-                  <li
-                    key={feature}
-                    className="text-sm text-slate-600 flex items-center gap-2"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                    {featureNames[feature]}
-                  </li>
-                );
+
+                return <li key={feature}>{featureNames[feature]}</li>;
               })}
             </ul>
           </div>
@@ -255,8 +254,8 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         onClick={() => handleOrder()}
         className="w-full bg-linear-to-r  from-orange-500 to-primary hover:from-orange-600 hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 cursor-pointer flex items-center justify-center gap-2 group"
       >
-        Continue Order
-        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        {isLoading ? <><DottedLoader/></>: <p className="flex items-center justify-center">Continue Order   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></p>}
+      
       </button>
 
       {/* Trust Badge */}

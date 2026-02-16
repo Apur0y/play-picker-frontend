@@ -37,8 +37,8 @@ export default function CustomizePackage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-[1400px] mx-auto px-6 py-12">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100">
+      <div className="max-w-350 mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-slate-900 mb-3">

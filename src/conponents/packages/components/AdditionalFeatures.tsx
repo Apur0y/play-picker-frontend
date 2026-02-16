@@ -36,25 +36,25 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
         <p className="text-slate-600">Enhance your package with premium add-ons</p>
       </div>
 
-      <div className="space-y-4">
+      <div className=" flex gap-3 flex-col md:flex-row">
         {features.map((feature) => {
-          const Icon = feature.icon;
+          // const Icon = feature.icon;
           const isSelected = selectedFeatures.includes(feature.id);
 
           return (
             <button
               key={feature.id}
               onClick={() => onToggle(feature.id)}
-              className={`w-full p-5 rounded-xl border-2 transition-all duration-200 text-left ${
+              className={`w-full p-1 rounded-xl border-2 transition-all duration-200 text-left ${
                 isSelected
                   ? 'border-cyan-500 bg-cyan-50 shadow-lg shadow-cyan-100'
                   : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
               }`}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 {/* Custom Checkbox */}
                 <div
-                  className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                  className={`w-6 h-6 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
                     isSelected
                       ? 'bg-cyan-500 border-cyan-500'
                       : 'bg-white border-slate-300'
@@ -64,7 +64,7 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
                 </div>
 
                 {/* Icon */}
-                <div
+                {/* <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                     isSelected
                       ? 'bg-cyan-500 text-white'
@@ -72,19 +72,15 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
                   }`}
                 >
                   <Icon className="w-6 h-6" />
-                </div>
+                </div> */}
 
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-lg text-slate-900">
+                    <span className="font-semibold text-sm md:text-lg text-slate-900">
                       {feature.name}
                     </span>
-                    {feature.recommended && (
-                      <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                        Recommended
-                      </span>
-                    )}
+                  
                   </div>
                   <p className="text-sm text-slate-500">{feature.description}</p>
                 </div>

@@ -22,12 +22,12 @@ const paymentApi = baseUrlApi.injectEndpoints({
     }),
 
     // 3️⃣ Get Payment Details by Transaction ID
-    getPaymentDetails: build.query({
-      query: (transactionId: string) => ({
-        url: `/payment/details/${transactionId}`,
-        method: "GET",
+      getPaymentDetails: build.query({
+        query: (transactionId: string) => ({
+          url: `/payment/details/${transactionId}`,
+          method: "GET",
+        }),
       }),
-    }),
 
     // 4️⃣ Get User Payment History
     getUserPayments: build.query({
