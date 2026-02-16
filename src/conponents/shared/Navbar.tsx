@@ -1,16 +1,32 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaFootballBall,
+  FaVolleyballBall,
+  FaBasketballBall,
+  FaFutbol,
+  FaHockeyPuck,
+} from "react-icons/fa";
+
+const sportsIcons: { [key: string]: React.ReactNode } = {
+  Football: <FaFootballBall className="inline mr-2 text-orange-500" />,
+  Lacrosse: <FaHockeyPuck className="inline mr-2 text-orange-500" />, // no exact lacrosse icon in FA
+  Soccer: <FaFutbol className="inline mr-2 text-orange-500" />,
+  Volleyball: <FaVolleyballBall className="inline mr-2 text-orange-500" />,
+  Basketball: <FaBasketballBall className="inline mr-2 text-orange-500" />,
+};
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [sportsOpen, setSportsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLUListElement>(null);
   console.log(scrolled);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -51,6 +67,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        event.target &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setProfileOpen(false);
+      }
+    };
+
+    if (profileOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileOpen]);
   const mobileMenuVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
@@ -128,14 +164,17 @@ export default function Navbar() {
 
               {/* Sports Dropdown */}
               {link.sports && (
-                <ul className="absolute  top-full left-0 mt-3 w-auto  bg-white/80 backdrop-blur-2xl text-black rounded-lg shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  {link.sports.map((sport) => (
-                    <li key={sport.name}>
+                <ul className="absolute top-full left-0 mt-3 w-auto bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-white/30">
+                  {link.sports.map((sport, index) => (
+                    <li
+                      key={sport.name}
+                      className={`${index !== link.sports.length - 1 ? "border-b border-white/20" : ""}`}
+                    >
                       <Link
                         href={sport.href}
-                        className="block px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b "
+                        className="flex items-center px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition"
                       >
-                        {sport.name}
+                        {sportsIcons[sport.name]} {sport.name}
                       </Link>
                     </li>
                   ))}
@@ -149,21 +188,25 @@ export default function Navbar() {
           ))}
 
           {/* Profile Icon */}
-          <li className="relative">
+          <li className="relative ">
             <button
               onClick={toggleProfile}
-              className="flex items-center gap-2 hover:text-orange-400 transition"
+              className="flex items-center gap-2 hover:text-orange-400 transition cursor-pointer"
             >
               <FaUserCircle size={28} />
             </button>
 
             {profileOpen && (
-              <ul className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg overflow-hidden z-50">
+              <ul
+                ref={menuRef}
+                className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg overflow-hidden z-50 border border-gray-300"
+              >
                 {profileLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
                       className="block px-4 py-2 hover:bg-gray-200 transition"
+                      onClick={() => setProfileOpen(false)} // <-- close the dropdown
                     >
                       {link.name}
                     </Link>
@@ -272,7 +315,7 @@ export default function Navbar() {
                             >
                               <Link
                                 href={sport.href}
-                                 onClick={() => setMenuOpen(false)}
+                                onClick={() => setMenuOpen(false)}
                                 className="block px-4 py-2 border-b border-white/10 hover:text-orange-400 transition"
                               >
                                 {sport.name}
