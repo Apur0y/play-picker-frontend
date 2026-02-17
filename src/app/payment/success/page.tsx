@@ -2,20 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { useGetPaymentDetailsQuery } from "@/redux/api/payment/paymentApi";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/conponents/Reuseable/Button";
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const tranId = searchParams.get("tran_id");
   const [transactionId, setTransactionId] = useState<string | null>(null);
 
   // Get transactionId from localStorage
   useEffect(() => {
-    const id = localStorage.getItem("transactionId");
+    const id = tranId || localStorage.getItem("transactionId");
     if (id) {
       setTransactionId(id);
     }
-  }, []);
+  }, [tranId]);
 
   const { data, isLoading } = useGetPaymentDetailsQuery(transactionId!, {
     skip: !transactionId,

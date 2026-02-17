@@ -100,6 +100,11 @@ export function PackageSummary({ config }: PackageSummaryProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    if(name =="" || value ==""){
+      setError(true)
+    }else{
+      setError(false)
+    }
 
     setFormData((prev) => ({
       ...prev,
@@ -259,10 +264,13 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         {isLoading ? <><DottedLoader/></>: <p className="flex items-center justify-center">Continue Order   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></p>}
       
       </button>
+      {error && (
+                <p className="text-red-600 text-sm">Please provide the information</p>
+              )}
 
       {/* Trust Badge */}
       <div className="mt-4 text-center text-xs text-slate-500">
-        <p>🔒 Secure checkout • 30-day money back guarantee</p>
+        <p>🔒 Secure checkout</p>
       </div>
     </div>
   );

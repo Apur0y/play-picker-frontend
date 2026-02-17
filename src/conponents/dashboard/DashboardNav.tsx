@@ -16,7 +16,7 @@ export default function DashboardNav({
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-2 mb-8 flex flex-col md:flex-row gap-2">
+    <div className="bg-white rounded-2xl shadow-lg p-2 mb-8 flex flex-col md:flex-row gap-2 ">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
@@ -26,7 +26,7 @@ export default function DashboardNav({
             onClick={() => setActiveTab(tab.id as "profile" | "orders")}
             className={`flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${
               isActive
-                ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg scale-105"
+                ? "bg-linear-to-r from-primary to-primary  text-white shadow-lg scale-105"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >

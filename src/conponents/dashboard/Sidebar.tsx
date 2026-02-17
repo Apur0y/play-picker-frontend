@@ -20,7 +20,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   ];
 
   return (
-    <div className="w-full md:w-64 bg-gradient-to-b from-primary via-orange-800 to-orange-900 rounded-2xl shadow-lg p-6 text-white h-fit">
+    <div className="w-full md:w-64 bg-linear-to-b from-primary via-orange-800 to-orange-900 rounded-2xl shadow-lg p-6 text-white h-fit">
       {/* Profile Card */}
       <div className="mb-8 p-4 bg-white/10 rounded-xl border border-white/20">
         <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
