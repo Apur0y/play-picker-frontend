@@ -126,7 +126,7 @@ export default function Navbar() {
       className={` top-0 left-0 w-full z-50 transition-all duration-700 bg-white text-black sticky shadow-md
   `}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center h-18">
+      <div className=" mx-auto px-6 flex justify-between items-center h-18">
         {/* Logo */}
         <Link href="/" className="text-4xl font-bold tracking-wide flex ">
           <Image
@@ -149,7 +149,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6 items-center font-poppins">
+        <ul className="hidden md:flex gap-2 xl:gap-6 items-center font-poppins">
           {menuLinks.map((link, index) => (
             <li
               key={link.name}

@@ -1,3 +1,5 @@
+import ComponentHeader from "../Reuseable/Header";
+
 interface Point {
   x: number;
   y: number;
@@ -84,17 +86,12 @@ export default function ProcessSection() {
 
   return (
     <div className="min-h-full py-6 sm:py-8 md:py-12 px-4 sm:px-6">
+              <ComponentHeader title=" How It Works" />
+      
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
-            How It Works
-          </h1>
-          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">
-            Follow the snake path through each step of the process
-          </p>
-        </div>
+       
 
-        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
+        <div className="bg-white rounded-xl  p-4 sm:p-6 md:p-8">
           <div className="relative w-full overflow-x-auto">
             <svg 
               viewBox="0 0 800 650" 

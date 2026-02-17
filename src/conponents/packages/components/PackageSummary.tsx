@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight, Package } from "lucide-react";
 import { ConfigState } from "../CumtomizePackages";
 import Link from "next/link";
-import { useInitiatePaymentMutation } from "@/redux/api/paymment/paymentApi";
+import { useInitiatePaymentMutation } from "@/redux/api/payment/paymentApi";
 import { toast } from "sonner";
 import DottedLoader from "@/conponents/Reuseable/DotLoader";
 
@@ -85,7 +85,9 @@ export function PackageSummary({ config }: PackageSummaryProps) {
       setError(false);
       try {
         const result = await payment(data).unwrap();
+        console.log(result);
         if (result.success) {
+          console.log("Under",result);
           localStorage.setItem("transactionId", result.data.transactionId);
           localStorage.setItem("sessionKey", result.data.sessionKey);
           window.location.href = result.data.url;

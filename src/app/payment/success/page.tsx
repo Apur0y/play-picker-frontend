@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useGetPaymentDetailsQuery } from "@/redux/api/paymment/paymentApi";
+import { useGetPaymentDetailsQuery } from "@/redux/api/payment/paymentApi";
 import { useRouter } from "next/navigation";
 
 export default function PaymentSuccessPage() {
@@ -49,7 +49,7 @@ export default function PaymentSuccessPage() {
 
         {/* Payment Details */}
         {payment && (
-          <div className="mt-6 text-left text-sm space-y-2">
+          <div className="mt-6 text-left text-sm space-y-2 text-slate-800">
             <div className="flex justify-between">
               <span className="text-slate-500">Transaction ID</span>
               <span className="font-medium">{payment.transactionId}</span>
@@ -57,7 +57,7 @@ export default function PaymentSuccessPage() {
 
             <div className="flex justify-between">
               <span className="text-slate-500">Amount</span>
-              <span className="font-medium">
+              <span className="font-medium ">
                 {payment.amount} {payment.currency}
               </span>
             </div>
