@@ -1,6 +1,7 @@
 "use client"
 import { motion } from "framer-motion";
 import { FiAward, FiTarget, FiUsers, FiVideo } from "react-icons/fi";
+import Container from "../shared/Container";
 
 export default function WhatWeDo() {
 
@@ -32,6 +33,7 @@ export default function WhatWeDo() {
   ];
 
   return (
+    <Container className="mx-auto">
     <div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -70,5 +72,6 @@ export default function WhatWeDo() {
             </div>
           </motion.div>
     </div>
+      </Container>
   )
 }

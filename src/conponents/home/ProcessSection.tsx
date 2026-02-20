@@ -1,4 +1,5 @@
 import ComponentHeader from "../Reuseable/Header";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 interface Point {
   x: number;
@@ -86,7 +87,8 @@ export default function ProcessSection() {
 
   return (
     <div className="min-h-full py-6 sm:py-8 md:py-12 px-4 sm:px-6">
-              <ComponentHeader title=" How It Works" />
+              {/* <ComponentHeader title=" How It Works" /> */}
+              <HeaderMain title=" How It" subtitle="Works" center />
       
       <div className="max-w-4xl mx-auto">
        

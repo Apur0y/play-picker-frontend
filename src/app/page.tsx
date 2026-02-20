@@ -24,14 +24,16 @@ export default function HomePage() {
       <WhoWeAre/>
       <WhatWeDo/>
       <OurWorks/>
-      {/* <SportsOptions /> */}
-      <ChooseUs/>
-     <ProcessSection/> 
-     <AboutUs/>
-      {/* <FloatingButtons /> */}
       <Packages />
+     <AboutUs/>
+     <ProcessSection/> 
      <FAQSection/>
       <Footer/>
     </main>
   );
 }
+
+
+      {/* <SportsOptions /> */}
+      {/* <ChooseUs/> */}
+      {/* <FloatingButtons /> */}

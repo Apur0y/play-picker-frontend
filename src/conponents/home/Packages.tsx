@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ComponentHeader from "../Reuseable/Header";
 import PackageCard from "../shared/PlanCard";
 import { useGetAllPackagesQuery } from "@/redux/api/packages/packageApi";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 
 export default function Packages() {
@@ -26,14 +27,16 @@ export default function Packages() {
   };
 
   return (
-    <div className="bg-emerald-950/20 py-20 text-white">
+    <div className="bg-orange-50 py-10 text-white">
 
-
+{/* 
       <ComponentHeader
         title="Our Packages"
         text="Choose the Right Plan for Your Needs."
-      />
-      <div className="flex justify-center flex-wrap mt-12 gap-10">
+      /> */}
+              <HeaderMain title="Our" subtitle="Packages" description="Choose the Right Plan for Your Needs." center />
+      
+      <div className="flex justify-center flex-wrap  gap-10">
         {packages?.data.map((pkg:any) => (
           <PackageCard
             key={pkg._id}

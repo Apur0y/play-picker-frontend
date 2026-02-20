@@ -5,6 +5,7 @@ import ComponentHeader from "../Reuseable/Header";
 import Link from "next/link";
 import WorksCard from "../shared/WorksCard";
 import Container from "../shared/Container";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 type Video = {
   id: number;
@@ -73,9 +74,10 @@ export default function OurWorks() {
   return (
     <Container className="mx-auto my-20">
       <section className="w-full text-white">
-        <ComponentHeader title="Works Gallery" />
+        {/* <ComponentHeader title="Works Gallery" /> */}
+        <HeaderMain title="Check Out" subtitle="Our Works" description="Here is some of the projects we done so far. You can have a look by click any of the video." />
 
-        <div className="grid lg:grid-cols-5 gap-10 mt-14">
+        <div className="grid lg:grid-cols-5 gap-10 mt-3">
           
           {/* LEFT SIDE - 2/3 WIDTH */}
           <motion.div
