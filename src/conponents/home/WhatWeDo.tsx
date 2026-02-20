@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { FiAward, FiTarget, FiUsers, FiVideo } from "react-icons/fi";
 import Container from "../shared/Container";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 export default function WhatWeDo() {
 
@@ -42,9 +43,8 @@ export default function WhatWeDo() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
-              What <span className="text-orange-600">We Do</span>
-            </h2>
+            
+            <HeaderMain title="What" subtitle="We Do" center/>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (

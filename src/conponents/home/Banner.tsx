@@ -59,10 +59,10 @@ export default function Banner() {
           </div>
         </div>
 
-        <div className="border-2 border-gray-100/10 rounded-2xl shadow-2xl backdrop-blur-xs m-6 w-1/3 hidden md:flex p-4">
+        {/* <div className="border-2 border-gray-100/10 rounded-2xl shadow-2xl backdrop-blur-xs m-6 w-1/3 hidden md:flex p-4">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
-              {/* 🧊 Glass Gradient */}
+          
               <defs>
                 <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
@@ -106,7 +106,7 @@ export default function Banner() {
               />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </div> */}
       </Container>
 
       {/* Bottom Auto-Scroll Stats */}

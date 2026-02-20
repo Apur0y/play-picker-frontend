@@ -1,7 +1,7 @@
 "use client";
 import { useGetAllSportsQuery } from "@/redux/api/sports/sportsApis";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useMemo, Suspense } from "react";
 
 type Video = {
@@ -25,11 +25,10 @@ function SportsPageContent() {
   const searchParams = useSearchParams();
   const sportParam = searchParams.get("sport");
   const [selectedSport, setSelectedSport] = useState(sportParam || "All");
+  const router = useRouter();
 
   const { data: allsports } = useGetAllSportsQuery({});
   console.log(allsports);
-
-
 
   const videos: Video[] = useMemo(
     () =>
@@ -61,20 +60,21 @@ function SportsPageContent() {
     ];
   }, [staticTypes, videos]);
 
- const filteredVideos =
-  !sportParam || sportParam.toLowerCase() === "all"
-    ? videos
-    : videos.filter(v => v.type.toLowerCase() === sportParam.toLowerCase());
+  const filteredVideos =
+    !sportParam || sportParam.toLowerCase() === "all"
+      ? videos
+      : videos.filter((v) => v.type.toLowerCase() === sportParam.toLowerCase());
 
   useEffect(() => {
     if (videos.length && !currentVideo) {
       setCurrentVideo(videos[0]);
     }
     if (sportParam) {
-      const capitalizedSport = sportParam.charAt(0).toUpperCase() + sportParam.slice(1);
+      const capitalizedSport =
+        sportParam.charAt(0).toUpperCase() + sportParam.slice(1);
       setSelectedSport(capitalizedSport);
     }
-  }, [videos, currentVideo, sportParam]);
+  }, [videos, selectedSport, currentVideo, sportParam]);
 
   return (
     <div className="w-full min-h-screen text-black">
@@ -99,14 +99,20 @@ function SportsPageContent() {
         {/* Right Side - Suggested Videos */}
         <div className="w-full lg:w-80 flex flex-col bg-gray-100 p-2 rounded-lg">
           {/* Filter Dropdown */}
-          <div className="mb-4">
+          <div className="mb-4 ">
             <select
               value={selectedSport}
-              onChange={(e) => setSelectedSport(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg p-2  focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => {
+                const sport = e.target.value;
+                setSelectedSport(sport);
+
+                // Set as query param
+                router.push(`/sports?sport=${encodeURIComponent(sport)}`);
+              }}
+              className="w-full border border-gray-300 rounded-lg p-2  focus:ring-2 focus:ring-orange-300 cursor-pointer"
             >
               {sports.map((sport) => (
-                <option key={sport} value={sport}>
+                <option key={sport} value={sport} className="text-orange-600 bg-white cursor-pointer  ">
                   {sport}
                 </option>
               ))}
@@ -114,39 +120,41 @@ function SportsPageContent() {
           </div>
 
           {/* Suggested Video List */}
-          {filteredVideos.length>0 ?<div className="space-y-3 overflow-y-auto max-h-[70vh]">
-            {filteredVideos.map((video) => (
-              <div
-                key={video.id}
-                onClick={() => setCurrentVideo(video)}
-                className={`flex gap-3 items-center p-2 rounded-lg cursor-pointer transition ${
-                  currentVideo?.id === video.id
-                    ? "bg-blue-100"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                <Image
-                  src={"https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?w-200" }
-                  // || video.thumbnail
-                  alt={video.title}
-                  height={700}
-                  width={700}
-                  className="w-24 h-16 rounded-lg object-cover"
-                />
+          {filteredVideos.length > 0 ? (
+            <div className="space-y-3 overflow-y-auto max-h-[70vh]">
+              {filteredVideos.map((video) => (
+                <div
+                  key={video.id}
+                  onClick={() => setCurrentVideo(video)}
+                  className={`flex gap-3 items-center p-2 rounded-lg cursor-pointer transition ${
+                    currentVideo?.id === video.id
+                      ? "bg-blue-100"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Image
+                    src={
+                      "https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?w-200"
+                    }
+                    // || video.thumbnail
+                    alt={video.title}
+                    height={700}
+                    width={700}
+                    className="w-24 h-16 rounded-lg object-cover"
+                  />
 
-                <div className="flex-1">
-                  <h4 className="text-sm font-medium  line-clamp-2">
-                    {video.title}
-                  </h4>
-                  <p className="text-xs ">{video.type}</p>
+                  <div className="flex-1">
+                    <h4 className="text-sm font-medium  line-clamp-2">
+                      {video.title}
+                    </h4>
+                    <p className="text-xs ">{video.type}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>:
-          <div className="text-center my- bg-white p-4">
-            No video found
-          </div> }
-          
+              ))}
+            </div>
+          ) : (
+            <div className="text-center my- bg-white p-4">No video found</div>
+          )}
         </div>
       </div>
 

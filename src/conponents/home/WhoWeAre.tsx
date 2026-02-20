@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { FiCheck } from "react-icons/fi";
 import Container from "../shared/Container";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 export default function WhoWeAre() {
   const fadeInUp = {
@@ -37,9 +38,7 @@ export default function WhoWeAre() {
           viewport={{ once: true }}
         >
           <motion.div variants={fadeInUp} className="mb-8">
-            <h2 className="text-3xl font-bold mb-6 text-gray-900">
-              Who <span className="text-orange-600">We Are</span>
-            </h2>
+            <HeaderMain title="Who" subtitle="We Are" />
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
               We are a team of former athletes, video editors, and recruitment
               specialists dedicated to helping student-athletes reach their full
