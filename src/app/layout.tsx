@@ -3,18 +3,17 @@ import { Oswald, Poppins, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/conponents/shared/Navbar";
 import StoreProvider from "@/redux/features/StoreProvider";
-
-
+import Footer from "@/conponents/shared/Footer";
 
 const roboto = Roboto_Condensed({
   subsets: ["cyrillic"],
   variable: "--font-condensed",
-})
+});
 
-const oswald =Oswald({
+const oswald = Oswald({
   subsets: ["cyrillic"],
   variable: "--font-condensed",
-})
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,13 +21,11 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-
-
 export const metadata: Metadata = {
   title: "Play Picker",
   description: "This is the best sports editing site",
-    icons: {
-    icon: "/favicon.ico"
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -43,10 +40,9 @@ export default function RootLayout({
         className={`${poppins.variable} font-sans antialiased bg-white text-black`}
       >
         <StoreProvider>
-
-        
-        <Navbar />
-        {children}
+          <Navbar />
+          {children}
+          <Footer />
         </StoreProvider>
       </body>
     </html>

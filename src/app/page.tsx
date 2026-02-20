@@ -28,7 +28,7 @@ export default function HomePage() {
      <AboutUs/>
      <ProcessSection/> 
      <FAQSection/>
-      <Footer/>
+   
     </main>
   );
 }
