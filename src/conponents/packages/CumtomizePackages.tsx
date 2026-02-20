@@ -72,7 +72,11 @@ export default function CustomizePackage() {
                 selectedRevisions={config.revisions}
                 onSelect={(revisions) => updateConfig({ revisions })}
               />
+
+              
+
             </div>
+
 
             <EffectSelector
               selectedEffects={config.selectedEffects}

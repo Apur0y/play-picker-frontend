@@ -30,13 +30,13 @@ const features = [
 
 export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFeaturesProps) {
   return (
-    <section className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+    <section className="bg-white rounded-2xl p-8 ">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Additional Features</h2>
         <p className="text-slate-600">Enhance your package with premium add-ons</p>
       </div>
 
-      <div className=" flex gap-3 flex-col md:flex-row">
+      <div className=" flex gap-3 flex-col">
         {features.map((feature) => {
           // const Icon = feature.icon;
           const isSelected = selectedFeatures.includes(feature.id);
@@ -77,12 +77,11 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-sm md:text-lg text-slate-900">
+                    <span className=" text-sm md:text-base text-slate-900">
                       {feature.name}
                     </span>
                   
                   </div>
-                  <p className="text-sm text-slate-500">{feature.description}</p>
                 </div>
               </div>
             </button>
