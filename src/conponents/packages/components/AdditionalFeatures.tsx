@@ -45,9 +45,9 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
             <button
               key={feature.id}
               onClick={() => onToggle(feature.id)}
-              className={`w-full p-1 rounded-xl border-2 transition-all duration-200 text-left ${
+              className={`w-full p-1 cursor-pointer border-2 transition-all duration-200 text-left ${
                 isSelected
-                  ? 'border-cyan-500 bg-cyan-50 shadow-lg shadow-cyan-100'
+                  ? 'border-orange-500 bg-orange-50 shadow-lg  shadow-orange-100'
                   : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
               }`}
             >
@@ -56,7 +56,7 @@ export function AdditionalFeatures({ selectedFeatures, onToggle }: AdditionalFea
                 <div
                   className={`w-6 h-6 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
                     isSelected
-                      ? 'bg-cyan-500 border-cyan-500'
+                      ? 'bg-primary border-orange-500'
                       : 'bg-white border-slate-300'
                   }`}
                 >

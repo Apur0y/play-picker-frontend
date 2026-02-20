@@ -8,6 +8,7 @@ import Container from "../shared/Container";
 import { useInitiatePaymentMutation } from "@/redux/api/payment/paymentApi";
 import { toast } from "sonner";
 import CheckoutModal from "../shared/CheckOutModal";
+import HeaderMain from "../Reuseable/HeaderMain";
 
 export interface IPlan {
   _id: string;
@@ -91,11 +92,9 @@ export default function PackagesPage() {
   return (
     <Container className="mx-auto">
       <div className="bgwhite py-20 text-white">
-        <ComponentHeader
-          title="Choose from PAckage"
-          text="Choose the Right Plan for Your Needs."
-        />
-        <div className="flex justify-center flex-wrap mt-12 gap-10">
+          <HeaderMain title="Our" subtitle="Packages" description="Choose the Right Plan for Your Needs." center />
+              
+        <div className="flex justify-center flex-wrap mt-3 gap-10">
           {packages?.data.map((pkg: IPlan) => (
             <PackageCard
               key={pkg._id}

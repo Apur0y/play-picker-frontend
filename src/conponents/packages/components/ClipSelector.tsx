@@ -10,9 +10,9 @@ interface ClipSelectorProps {
 
 export function ClipSelector({ clipOption, customClipCount, onUpdate }: ClipSelectorProps) {
   const options = [
-    { value: '10-15' as const, label: '10–15 Clips', description: 'Small project',extra:"+50$" },
-    { value: '20-25' as const, label: '20–25 Clips', description: 'Medium scope',extra:"+80$"},
-    { value: '35-40' as const, label: '35–40 Clips', description: 'Large project', extra:"+125$" },
+    { value: '10-15' as const, label: '10–15 Clips', description: 'Small project',extra:"$" },
+    { value: '20-25' as const, label: '20–25 Clips', description: 'Medium scope',extra:"$"},
+    { value: '35-40' as const, label: '35–40 Clips', description: 'Large project', extra:"$" },
 
   ];
 
