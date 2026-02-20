@@ -11,6 +11,8 @@ import SportsOptions from "@/conponents/shared/SportsOptions";
 import ProcessSection from "@/conponents/home/ProcessSection";
 import Banner from "@/conponents/home/Banner";
 import FootballInfo from "@/conponents/home/Football";
+import WhoWeAre from "@/conponents/home/WhoWeAre";
+import WhatWeDo from "@/conponents/home/WhatWeDo";
 
 
 export default function HomePage() {
@@ -19,6 +21,8 @@ export default function HomePage() {
       
       <Banner />
       <FootballInfo/>
+      <WhoWeAre/>
+      <WhatWeDo/>
       <OurWorks/>
       {/* <SportsOptions /> */}
       <ChooseUs/>

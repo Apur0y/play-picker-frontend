@@ -27,7 +27,6 @@ export default function Navbar() {
   const [sportsOpen, setSportsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
-  console.log(scrolled);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);

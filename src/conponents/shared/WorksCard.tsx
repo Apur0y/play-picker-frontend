@@ -12,15 +12,16 @@ type Video = {
 
 interface MainVideo {
   video: Video;
+  large?:boolean;
 }
 
 
-export default function WorksCard({ video }: MainVideo) {
+export default function WorksCard({ video,large }: MainVideo) {
   const [play, setPlay] = useState(true);
 
 
   return (
-    <div className="text-neutral-600 border border-neutral-200 hover:shadow-lg transition overflow-hidden h-full cursor-pointer duration-300">
+    <div className={`${large?"":"flex"} text-neutral-600 border border-neutral-200 hover:shadow-lg transition overflow-hidden h-full cursor-pointer duration-300`}>
       
       {/* Video / Thumbnail */}
       <div className="aspect-video relative" onClick={() => setPlay(true)}>
@@ -55,7 +56,7 @@ export default function WorksCard({ video }: MainVideo) {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-semibold text-xl">{video.title}</h3>
+            <h3 className="font-semibold text-md">{video.title}</h3>
             <p className="text-sm">{video.sport}</p>
           </div>
         </div>
@@ -64,14 +65,7 @@ export default function WorksCard({ video }: MainVideo) {
           This is the sports if you are looking for, check out the sample and reach out to us to contact. Match this quality and get your stand out video.
         </p>
 
-        <a
-          href={video.videoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1 border rounded"
-        >
-          Preview
-        </a>
+       
       </div>
     </div>
   );

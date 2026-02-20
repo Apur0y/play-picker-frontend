@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useGetPaymentDetailsQuery } from "@/redux/api/payment/paymentApi";
 import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/conponents/Reuseable/Button";
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -121,5 +121,19 @@ export default function PaymentSuccessPage() {
         </Button>
       </div>
     </div>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center text-lg font-medium">
+          Loading payment details...
+        </div>
+      }
+    >
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }
