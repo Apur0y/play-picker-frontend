@@ -40,7 +40,7 @@ export default function NotFoundPage() {
       {/* Back to Home Button */}
       <button
         onClick={() => router.push("/")}
-        className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-medium transition"
+        className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-lg font-medium transition cursor-pointer"
       >
         Go Home
       </button>

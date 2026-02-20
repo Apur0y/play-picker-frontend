@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useInitiatePaymentMutation } from "@/redux/api/payment/paymentApi";
 import { toast } from "sonner";
 import DottedLoader from "@/conponents/Reuseable/DotLoader";
+import Button from "@/conponents/Reuseable/Button";
 
 interface PackageSummaryProps {
   config: ConfigState;
@@ -19,7 +20,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
     customerPhone: "",
   });
 
-  const [payment, {isLoading}] = useInitiatePaymentMutation();
+  const [payment, { isLoading }] = useInitiatePaymentMutation();
 
   // Pricing calculation logic
   const calculatePrice = () => {
@@ -87,23 +88,23 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         const result = await payment(data).unwrap();
         console.log(result);
         if (result.success) {
-          console.log("Under",result);
+          console.log("Under", result);
           localStorage.setItem("transactionId", result.data.transactionId);
           localStorage.setItem("sessionKey", result.data.sessionKey);
           window.location.href = result.data.url;
         }
       } catch (error) {
-        toast.error(`${error}`)
+        toast.error(`${error}`);
       }
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if(name =="" || value ==""){
-      setError(true)
-    }else{
-      setError(false)
+    if (name == "" || value == "") {
+      setError(true);
+    } else {
+      setError(false);
     }
 
     setFormData((prev) => ({
@@ -244,7 +245,7 @@ export function PackageSummary({ config }: PackageSummaryProps) {
 
       {/* Total Price */}
       <div className="mb-6">
-        <div className="flex items-end justify-between mb-2">
+        <div className="flex items-center justify-between mb-2">
           <span className="text-slate-600 font-medium">Total Price</span>
           <div className="text-right">
             <div className="text-4xl font-bold text-slate-900">
@@ -255,18 +256,21 @@ export function PackageSummary({ config }: PackageSummaryProps) {
         </div>
       </div>
 
-      {/* CTA Button */}
-      <Link href={"/contact"}></Link>
-      <button
-        onClick={() => handleOrder()}
-        className="w-full bg-linear-to-r  from-orange-500 to-primary hover:from-orange-600 hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-orange-200 hover:shadow-xl hover:shadow-orange-300 cursor-pointer flex items-center justify-center gap-2 group"
-      >
-        {isLoading ? <><DottedLoader/></>: <p className="flex items-center justify-center">Continue Order   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></p>}
-      
-      </button>
+      <Button className="w-full" onClick={() => handleOrder()} disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <DottedLoader />
+          </>
+        ) : (
+          <p className="flex items-center justify-center">
+            Proceed to Payment{" "}
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </p>
+        )}
+      </Button>
       {error && (
-                <p className="text-red-600 text-sm">Please provide the information</p>
-              )}
+        <p className="text-red-600 text-sm">Please provide the information</p>
+      )}
 
       {/* Trust Badge */}
       <div className="mt-4 text-center text-xs text-slate-500">

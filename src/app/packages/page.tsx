@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div className='bg-gradient-to-br from-slate-50 to-slate-100'>
+    <div className='bg-linear-to-br from-slate-50 to-slate-100'>
      <CustomizePackage/>
      <PackagesPage/>
     </div>

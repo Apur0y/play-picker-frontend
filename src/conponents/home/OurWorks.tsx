@@ -92,7 +92,7 @@ export default function OurWorks() {
                 },
               },
             }}
-            className="lg:col-span-3  space-y-3"
+            className="lg:col-span-3 hidden md:flex flex-col  space-y-3"
           >
             {smallVideos.slice(0, 3).map((video) => (
               <motion.div
@@ -111,7 +111,7 @@ export default function OurWorks() {
 
           {/* RIGHT SIDE - FEATURED CARD */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}

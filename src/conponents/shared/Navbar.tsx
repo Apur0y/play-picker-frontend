@@ -272,13 +272,13 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="md:hidden bg-black text-white px-6 pb-4 space-y-2 overflow-hidden"
+            className="md:hidden bg-white text-black px-6 pb-4 space-y-2 overflow-hidden"
           >
             {menuLinks.map((link) => (
               <motion.li
                 key={link.name}
                 variants={menuItemVariants}
-                className="transition"
+                className="transition border-b border-gray-300"
               >
                 {link.name === "Sports" ? (
                   <>

@@ -1,5 +1,6 @@
 import { GiCheckMark } from "react-icons/gi";
-import { FaCrown, FaFire, FaStar, FaCheckCircle } from "react-icons/fa";
+import { FaCrown, FaFire, FaCheckCircle } from "react-icons/fa";
+import Button from "../Reuseable/Button";
 
 interface PackageCardProps {
   price: number | string;
@@ -28,19 +29,18 @@ export default function PackageCard({
   recommended = false,
   savings,
 }: PackageCardProps) {
-
-  const getPlanIcon = () => {
-    if (recommended) return <FaCrown className="text-yellow-500 text-lg" />;
-    if (popular) return <FaFire className="text-orange-500 text-lg" />;
-    return <FaStar className="text-blue-400 text-lg" />;
-  };
+  // const getPlanIcon = () => {
+  //   if (recommended) return <FaCrown className="text-yellow-500 text-lg" />;
+  //   if (popular) return <FaFire className="text-orange-500 text-lg" />;
+  //   return <FaStar className="text-blue-400 text-lg" />;
+  // };
 
   const formattedPrice = `${currency.toUpperCase()} ${price}`;
   const isSubscription = planType === "subscription";
 
   return (
     <div
-      className={`relative w-full max-w-100 border rounded-2xl overflow-hidden transition-all duration-500 hover:scale-103 hover:shadow-2xl
+      className={`relative w-full max-w-100 border rounded-2xl overflow-hidden transition-all duration-500 3 hover:shadow-2xl
       border-gray-200 shadow-md`}
     >
       {/* Recommended Badge */}
@@ -68,10 +68,7 @@ export default function PackageCard({
         className={`bg-linear-to-r p-6 text-center from-gray-800 to-gray-900
         `}
       >
-       
-        <h1 className="text-2xl font-bold text-white mb-2">
-          {packageName}
-        </h1>
+        <h1 className="text-2xl font-bold text-white mb-2">{packageName}</h1>
 
         <div className="flex items-baseline justify-center gap-1 mb-2">
           <span className="text-4xl font-bold text-white">
@@ -118,27 +115,27 @@ export default function PackageCard({
           </p>
 
           <ul className="space-y-3">
-            {(permissions.length ? permissions : features).map((item, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <GiCheckMark className="text-green-500 mt-0.5 shrink-0" />
-                <span className="text-sm text-gray-700 leading-tight">
-                  {item}
-                </span>
-              </li>
-            ))}
+            {(permissions.length ? permissions : features).map(
+              (item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <GiCheckMark className="text-green-500 mt-0.5 shrink-0" />
+                  <span className="text-sm text-gray-700 leading-tight">
+                    {item}
+                  </span>
+                </li>
+              ),
+            )}
           </ul>
         </div>
 
-        {/* Button */}
-        <button
-          onClick={onButtonClick}
-          disabled={!!buttonText}
-          className={`w-full py-3  px-4 cursor-pointer rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-gray-800  text-white shadow-md hover:shadow-lg
+       
+        <Button
+        className={`w-full duration-300
             ${buttonText ? "opacity-75 cursor-not-allowed" : "hover:-translate-y-1"}
           `}
-        >
+        onClick={onButtonClick} disabled={!!buttonText}>
           {buttonText || "Get Started Now"}
-        </button>
+        </Button>
 
         <p className="text-xs text-gray-500 text-center mt-4">
           No hidden fees · Secure checkout · Fast delivery
