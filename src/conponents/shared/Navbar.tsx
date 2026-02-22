@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,11 @@ import {
   FaFutbol,
   FaHockeyPuck,
 } from "react-icons/fa";
+import { useGetMeQuery, useLoginMutation } from "@/redux/api/auth/auth";
+import Button from "../Reuseable/Button";
+import { useRouter } from "next/navigation";
+import { setUser } from "@/redux/features/authSlice";
+import { useAppSelector, useAppDispatch } from "@/redux/features/hook";
 
 const sportsIcons: { [key: string]: React.ReactNode } = {
   Football: <FaFootballBall className="inline mr-2 text-orange-500" />,
@@ -21,15 +27,6 @@ const sportsIcons: { [key: string]: React.ReactNode } = {
   Basketball: <FaBasketballBall className="inline mr-2 text-orange-500" />,
 };
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [sportsOpen, setSportsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const menuRef = useRef<HTMLUListElement>(null);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const toggleProfile = () => setProfileOpen(!profileOpen);
 
   const menuLinks = [
     { name: "Home", href: "/" },
@@ -57,35 +54,7 @@ export default function Navbar() {
     { name: "Logout", href: "/logout" },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        event.target &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
-        setProfileOpen(false);
-      }
-    };
-
-    if (profileOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [profileOpen]);
+  
   const mobileMenuVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
@@ -96,7 +65,7 @@ export default function Navbar() {
         delayChildren: 0.1,
       },
     },
-    exit: { opacity: 0, y: -20 },
+    exit: { opacity: 0, x: -20 },
   };
 
   const menuItemVariants = {
@@ -120,9 +89,67 @@ export default function Navbar() {
     visible: { opacity: 1, x: 0 },
   };
 
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [sportsOpen, setSportsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLUListElement>(null);
+  const menuRef2 = useRef<HTMLUListElement>(null);
+  const router=useRouter();
+
+  const [login,{isLoading}]=useLoginMutation();
+  const {data}=useGetMeQuery({});
+  const dispatch = useAppDispatch();
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleProfile = () => setProfileOpen(!profileOpen);
+  const user = useAppSelector((state) => state.auth?.user);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current  &&
+        event.target &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setProfileOpen(false);
+      }
+    };
+
+    if (profileOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileOpen]);
+
+  // const { data,  } = useGetMeQuery(undefined);
+
+useEffect(() => {
+  if (data?.data) {
+    dispatch(setUser(data.data));
+  }
+}, [data]);
+
+
   return (
     <nav
-      className={` top-0 left-0 w-full z-50 transition-all duration-700 bg-white text-black sticky shadow-md
+      className={` top-0 left-0 w-full z-50 transition-all duration-700 bg-gray-900/95 text-white sticky shadow-md
   `}
     >
       <div className=" mx-auto px-6 flex justify-between items-center h-18">
@@ -187,7 +214,7 @@ export default function Navbar() {
           ))}
 
           {/* Profile Icon */}
-          <li className="relative ">
+         {user? <li className="relative ">
             <button
               onClick={toggleProfile}
               className="flex items-center gap-2 hover:text-orange-400 transition cursor-pointer"
@@ -198,13 +225,13 @@ export default function Navbar() {
             {profileOpen && (
               <ul
                 ref={menuRef}
-                className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg overflow-hidden z-50 border border-gray-300"
+                className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden z-50 border border-gray-300"
               >
                 {profileLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="block px-4 py-2 hover:bg-gray-200 transition"
+                      className="block px-4 py-2  hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
                       onClick={() => setProfileOpen(false)} // <-- close the dropdown
                     >
                       {link.name}
@@ -213,20 +240,20 @@ export default function Navbar() {
                 ))}
               </ul>
             )}
-          </li>
+          </li> :<><Button onClick={()=>router.push("/signin")}>Sign In</Button></>}
         </ul>
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center gap-4">
-          <button onClick={toggleProfile} className="relative">
+          <button onClick={toggleProfile} className="relative hover:text-orange-400 transition cursor-pointer">
             <FaUserCircle size={28} />
             {profileOpen && (
-              <ul className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+              <ul className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
                 {profileLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="block px-4 py-2 hover:bg-gray-200 transition"
+                      className="block px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
                     >
                       {link.name}
                     </Link>
@@ -236,7 +263,7 @@ export default function Navbar() {
             )}
           </button>
 
-          <button onClick={toggleMenu} className="relative w-8 h-8">
+          <button onClick={toggleMenu} className="relative w-8 h-8 cursor-pointer">
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
                 <motion.span
@@ -272,7 +299,7 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="md:hidden bg-white text-black px-6 pb-4 space-y-2 overflow-hidden"
+            className="md:hidden bg-white text-black px-6 pb-4 space-y-2 overflow-hidden "
           >
             {menuLinks.map((link) => (
               <motion.li
@@ -342,6 +369,8 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
 //  ${
 // scrolled
 //   ? "md:bg-white md:text-black md:shadow-lg md:sticky"
