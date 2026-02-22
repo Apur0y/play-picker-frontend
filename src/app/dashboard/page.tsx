@@ -5,9 +5,12 @@ import ProfileManagement from "@/conponents/dashboard/ProfileManagement";
 import OrderManagement from "@/conponents/dashboard/OrderManagement";
 import DashboardNav from "@/conponents/dashboard/DashboardNav";
 import Sidebar from "@/conponents/dashboard/Sidebar";
+import { useAppSelector } from "@/redux/features/hook";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<"profile" | "orders">("profile");
+    const user = useAppSelector((state) => state.auth?.user);
+    console.log(user);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -36,12 +39,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Welcome Section */}
-        <div className=" rounded-2xl p-8 text-primary shadow-lg border">
+        {/* <div className=" rounded-2xl p-8 text-primary shadow-lg border">
           <h2 className="text-3xl font-bold mb-2">Welcome Back! 👋</h2>
           <p className="text-orange-950">
             Manage your account and view your order history. Stay updated with your video production status.
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Content */}

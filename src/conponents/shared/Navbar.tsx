@@ -13,7 +13,7 @@ import {
   FaFutbol,
   FaHockeyPuck,
 } from "react-icons/fa";
-import { useGetMeQuery, useLoginMutation } from "@/redux/api/auth/auth";
+import { useGetMeQuery, useLoginMutation, useLogoutMutation } from "@/redux/api/auth/auth";
 import Button from "../Reuseable/Button";
 import { useRouter } from "next/navigation";
 import { logoutUser, setUser } from "@/redux/features/authSlice";
@@ -98,15 +98,17 @@ export default function Navbar() {
   const router = useRouter();
 
   const { data } = useGetMeQuery({});
+  const [logout]=useLogoutMutation();
   const dispatch = useAppDispatch();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const user = useAppSelector((state) => state.auth?.user);
 
-  const handleLogout=()=>{
-    toast("Logout Successfull!");
+  const handleLogout=async()=>{
     dispatch(logoutUser());
+    await logout({});
+    toast("Logout Successfull!");
   }
 
   useEffect(() => {
@@ -123,7 +125,9 @@ export default function Navbar() {
       if (
         menuRef.current &&
         event.target &&
-        !menuRef.current.contains(event.target as Node)
+        !menuRef.current.contains(event.target as Node) && menuRef2.current &&
+        event.target &&
+        !menuRef2.current.contains(event.target as Node) 
       ) {
         setProfileOpen(false);
       }
@@ -256,7 +260,7 @@ export default function Navbar() {
             </li>
           ) : (
             <>
-              <Button onClick={() => router.push("/signin")}>Sign In</Button>
+              <Button className="ml-5" onClick={() => router.push("/signin")}>Sign In</Button>
             </>
           )}
         </ul>
@@ -269,7 +273,7 @@ export default function Navbar() {
           >
             <FaUserCircle size={28} />
             {profileOpen && (
-              <ul className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+              <ul  ref={menuRef2} className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
                 {profileLinks.map((link) => (
                   <li key={link.name}>
                     <Link

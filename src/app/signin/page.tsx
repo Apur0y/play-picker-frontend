@@ -8,13 +8,15 @@ import {
 } from "@/redux/api/auth/auth";
 import Button from "@/conponents/Reuseable/Button";
 import { BsGoogle } from "react-icons/bs";
-import { FaGoogle } from "react-icons/fa";
+import { setUser } from "@/redux/features/authSlice";
+import { useAppDispatch } from "@/redux/features/hook";
 
 export default function SignIn() {
   const router = useRouter();
 
   const [login, { isLoading }] = useLoginMutation();
   const [googleLogin] = useGoogleLoginMutation();
+  const dispatch=useAppDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -37,6 +39,10 @@ export default function SignIn() {
     try {
       const res = await login(formData).unwrap();
       if (res.success) {
+        dispatch(setUser({
+  user: res.data,
+  token: res.accessToken
+}));
         router.push("/"); // redirect after login
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

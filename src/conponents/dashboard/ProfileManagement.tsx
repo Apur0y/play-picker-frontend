@@ -1,28 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User, Mail, Phone, MapPin, Edit2, Save, X } from "lucide-react";
+import { useAppSelector } from "@/redux/features/hook";
 
-interface UserProfile {
+type UserProfile = {
   name: string;
   email: string;
   phone: string;
   address: string;
-  city: string;
-  country: string;
-  joinDate: string;
-}
+  role?: string;
+  joinDate?: string;
+};
 
 export default function ProfileManagement() {
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState<UserProfile>({
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Sports Street",
-    city: "New York",
-    country: "USA",
-    joinDate: "January 2024",
-  });
+   const user = useAppSelector((state) => state.auth?.user);
+const [profile, setProfile] = useState<UserProfile>({
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  role: "",
+  joinDate: ""
+});
+
+
 
   const [editData, setEditData] = useState(profile);
 
@@ -48,9 +50,24 @@ export default function ProfileManagement() {
     }));
   };
 
+  useEffect(() => {
+  if (user) {
+    setProfile({
+      name: user.name || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      address: user.address || "",
+      role: user.role || "",
+      joinDate: user.createdAt
+        ? new Date(user.createdAt).toLocaleDateString()
+        : "",
+    });
+  }
+}, [user]);
+
   if (isEditing) {
     return (
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl">
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl text-gray-900">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
           <User className="w-8 h-8 text-orange-600" />
           Edit Profile
@@ -119,23 +136,23 @@ export default function ProfileManagement() {
               <input
                 type="text"
                 name="city"
-                value={editData.city}
+                value={editData.address}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition"
               />
             </div>
-            <div>
+            {/* <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Country
               </label>
               <input
                 type="text"
                 name="country"
-                value={editData.country}
+                value={editData.address}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex gap-4 pt-6">
@@ -206,7 +223,7 @@ export default function ProfileManagement() {
             Address
           </p>
           <p className="text-xl font-semibold text-gray-800">
-            {profile.address}, {profile.city}, {profile.country}
+            {profile.address}
           </p>
         </div>
 
