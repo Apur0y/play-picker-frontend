@@ -16,8 +16,9 @@ import {
 import { useGetMeQuery, useLoginMutation } from "@/redux/api/auth/auth";
 import Button from "../Reuseable/Button";
 import { useRouter } from "next/navigation";
-import { setUser } from "@/redux/features/authSlice";
+import { logoutUser, setUser } from "@/redux/features/authSlice";
 import { useAppSelector, useAppDispatch } from "@/redux/features/hook";
+import { toast } from "sonner";
 
 const sportsIcons: { [key: string]: React.ReactNode } = {
   Football: <FaFootballBall className="inline mr-2 text-orange-500" />,
@@ -27,68 +28,65 @@ const sportsIcons: { [key: string]: React.ReactNode } = {
   Basketball: <FaBasketballBall className="inline mr-2 text-orange-500" />,
 };
 
+const menuLinks = [
+  { name: "Home", href: "/" },
+  {
+    name: "Sports",
+    href: "/sports",
+    sports: [
+      { name: "Football", href: "/sports?sport=football" },
+      { name: "Lacrosse", href: "/sports?sport=lacrosse" },
+      { name: "Soccer", href: "/sports?sport=soccer" },
+      { name: "Volleyball", href: "/sports?sport=volleyball" },
+      { name: "Basketball", href: "/sports?sport=basketball" },
+    ],
+  },
+  { name: "Packages", href: "/packages" },
+  { name: "About", href: "/about-us" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Contact", href: "/contact" },
+];
 
-  const menuLinks = [
-    { name: "Home", href: "/" },
-    {
-      name: "Sports",
-      href: "/sports",
-      sports: [
-        { name: "Football", href: "/sports?sport=football" },
-        { name: "Lacrosse", href: "/sports?sport=lacrosse" },
-        { name: "Soccer", href: "/sports?sport=soccer" },
-        { name: "Volleyball", href: "/sports?sport=volleyball" },
-        { name: "Basketball", href: "/sports?sport=basketball" },
-      ],
+const profileLinks = [
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "Orders", href: "/dashboard" },
+  { name: "Settings", href: "/settings" },
+  { name: "Logout", href: "/logout" },
+];
+
+const mobileMenuVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
-    { name: "Packages", href: "/packages" },
-    { name: "About", href: "/about-us" },
-    { name: "FAQ", href: "/#faq" },
-    { name: "Contact", href: "/contact" },
-  ];
+  },
+  exit: { opacity: 0, x: -20 },
+};
 
-  const profileLinks = [
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "Orders", href: "/dashboard" },
-    { name: "Settings", href: "/settings" },
-    { name: "Logout", href: "/logout" },
-  ];
+const menuItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0 },
+};
 
-  
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
+const sportsVariants = {
+  hidden: { opacity: 0, height: 0 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    transition: {
+      staggerChildren: 0.06,
     },
-    exit: { opacity: 0, x: -20 },
-  };
+  },
+};
 
-  const menuItemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0 },
-  };
-
-  const sportsVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        staggerChildren: 0.06,
-      },
-    },
-  };
-
-  const sportsItemVariants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0 },
-  };
-
+const sportsItemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0 },
+};
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -97,16 +95,19 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuRef2 = useRef<HTMLUListElement>(null);
-  const router=useRouter();
+  const router = useRouter();
 
-  const [login,{isLoading}]=useLoginMutation();
-  const {data}=useGetMeQuery({});
+  const { data } = useGetMeQuery({});
   const dispatch = useAppDispatch();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const user = useAppSelector((state) => state.auth?.user);
 
+  const handleLogout=()=>{
+    toast("Logout Successfull!");
+    dispatch(logoutUser());
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -120,7 +121,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        menuRef.current  &&
+        menuRef.current &&
         event.target &&
         !menuRef.current.contains(event.target as Node)
       ) {
@@ -140,12 +141,11 @@ export default function Navbar() {
 
   // const { data,  } = useGetMeQuery(undefined);
 
-useEffect(() => {
-  if (data?.data) {
-    dispatch(setUser(data.data));
-  }
-}, [data]);
-
+  useEffect(() => {
+    if (data?.data) {
+      dispatch(setUser(data.data));
+    }
+  }, [data]);
 
   return (
     <nav
@@ -214,38 +214,59 @@ useEffect(() => {
           ))}
 
           {/* Profile Icon */}
-         {user? <li className="relative ">
-            <button
-              onClick={toggleProfile}
-              className="flex items-center gap-2 hover:text-orange-400 transition cursor-pointer"
-            >
-              <FaUserCircle size={28} />
-            </button>
-
-            {profileOpen && (
-              <ul
-                ref={menuRef}
-                className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden z-50 border border-gray-300"
+          {user ? (
+            <li className="relative ">
+              <button
+                onClick={toggleProfile}
+                className="flex items-center gap-2 hover:text-orange-400 transition cursor-pointer"
               >
-                {profileLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="block px-4 py-2  hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
-                      onClick={() => setProfileOpen(false)} // <-- close the dropdown
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li> :<><Button onClick={()=>router.push("/signin")}>Sign In</Button></>}
+                <FaUserCircle size={28} />
+              </button>
+
+              {profileOpen && (
+                <ul
+                  ref={menuRef}
+                  className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden z-50 border border-gray-300"
+                >
+                  {profileLinks.map((link) => (
+                    <li key={link.name}>
+                      {link.name === "Logout" ? (
+                        <button
+                          onClick={() => {
+                            handleLogout();
+                            setProfileOpen(false);
+                          }}
+                          className="block w-full cursor-pointer text-left px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
+                        >
+                          Logout
+                        </button>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="block px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
+                          onClick={() => setProfileOpen(false)}
+                        >
+                          {link.name}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ) : (
+            <>
+              <Button onClick={() => router.push("/signin")}>Sign In</Button>
+            </>
+          )}
         </ul>
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center gap-4">
-          <button onClick={toggleProfile} className="relative hover:text-orange-400 transition cursor-pointer">
+          <button
+            onClick={toggleProfile}
+            className="relative hover:text-orange-400 transition cursor-pointer"
+          >
             <FaUserCircle size={28} />
             {profileOpen && (
               <ul className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
@@ -263,7 +284,10 @@ useEffect(() => {
             )}
           </button>
 
-          <button onClick={toggleMenu} className="relative w-8 h-8 cursor-pointer">
+          <button
+            onClick={toggleMenu}
+            className="relative w-8 h-8 cursor-pointer"
+          >
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
                 <motion.span
@@ -369,7 +393,6 @@ useEffect(() => {
     </nav>
   );
 }
-
 
 //  ${
 // scrolled

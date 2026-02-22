@@ -2,7 +2,13 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useGoogleLoginMutation, useLoginMutation } from "@/redux/api/auth/auth";
+import {
+  useGoogleLoginMutation,
+  useLoginMutation,
+} from "@/redux/api/auth/auth";
+import Button from "@/conponents/Reuseable/Button";
+import { BsGoogle } from "react-icons/bs";
+import { FaGoogle } from "react-icons/fa";
 
 export default function SignIn() {
   const router = useRouter();
@@ -29,9 +35,11 @@ export default function SignIn() {
     setError(null);
 
     try {
-      await login(formData).unwrap();
-      router.push("/"); // redirect after login
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await login(formData).unwrap();
+      if (res.success) {
+        router.push("/"); // redirect after login
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err?.data?.message || "Login failed");
     }
@@ -41,7 +49,7 @@ export default function SignIn() {
     try {
       await googleLogin({}).unwrap();
       router.push("/dashboard");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError("Google login failed");
     }
@@ -50,10 +58,7 @@ export default function SignIn() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 px-4">
       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
-
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Sign In
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
 
         {error && (
           <div className="mb-4 text-sm text-red-600 bg-red-100 p-2 rounded">
@@ -62,12 +67,9 @@ export default function SignIn() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Email
-            </label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
               name="email"
@@ -81,9 +83,7 @@ export default function SignIn() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Password
-            </label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
               name="password"
@@ -96,24 +96,22 @@ export default function SignIn() {
           </div>
 
           {/* Forgot Password */}
-          <div className="flex justify-end text-sm">
+          <div className="flex justify-start  text-sm">
             <button
               type="button"
               onClick={() => router.push("/forgot-password")}
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 hover:underline cursor-pointer"
             >
               Forgot Password?
             </button>
           </div>
 
           {/* Submit */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
-          >
+
+          <Button className="w-full" type="submit" disabled={isLoading}>
+            {" "}
             {isLoading ? "Signing in..." : "Sign In"}
-          </button>
+          </Button>
         </form>
 
         {/* Divider */}
@@ -126,9 +124,9 @@ export default function SignIn() {
         {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full border py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition"
+          className="w-full border py-3 cursor-pointer rounded-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition"
         >
-          Continue with Google
+          <BsGoogle /> Continue with Google
         </button>
 
         {/* Sign Up Link */}

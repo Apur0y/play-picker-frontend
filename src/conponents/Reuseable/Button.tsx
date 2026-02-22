@@ -27,7 +27,7 @@ export default function Button(props: ButtonProps) {
 
   const sizes = {
     sm: "px-4 py-2 text-sm",
-    md: "px-2 py-1 text-sm md:px-6 md:py-3 md:text-base",
+    md: "px-2 py-3 text-sm md:px-6 md:py-3 md:text-base",
     lg: "px-8 py-4 text-lg",
   } as const;
 
