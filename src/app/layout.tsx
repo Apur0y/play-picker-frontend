@@ -40,9 +40,7 @@ export default function RootLayout({
         className={`${poppins.variable} font-sans antialiased bg-white text-black`}
       >
         <StoreProvider>
-          <Navbar />
           {children}
-          <Footer />
         </StoreProvider>
       </body>
     </html>

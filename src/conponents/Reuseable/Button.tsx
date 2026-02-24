@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "outline";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg"| "au";
   className?: string;
 }
 
@@ -29,6 +29,7 @@ export default function Button(props: ButtonProps) {
     sm: "px-4 py-2 text-sm",
     md: "px-2 py-3 text-sm md:px-6 md:py-3 md:text-base",
     lg: "px-8 py-4 text-lg",
+    au: "px-5 py-2 text-md",
   } as const;
 
   return (

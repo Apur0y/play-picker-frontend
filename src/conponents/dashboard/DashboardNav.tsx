@@ -12,12 +12,12 @@ export default function DashboardNav({
   setActiveTab,
 }: DashboardNavProps) {
   const tabs = [
-    { id: "profile", label: "Profile Management", icon: User },
-    { id: "orders", label: "Order Management", icon: ShoppingCart },
+    { id: "profile", label: "Profile Management",mlabel: "Profile ", icon: User },
+    { id: "orders", label: "Order Management",mlabel:"Order", icon: ShoppingCart },
   ];
 
   return (
-    <div className="relative bg-white rounded-2xl shadow-lg p-2 mb-8 flex flex-col md:flex-row gap-2">
+    <div className="relative bg-white rounded-2xl shadow-lg p-2  md:mb-8 flex flex-row gap-2">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
@@ -26,7 +26,7 @@ export default function DashboardNav({
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as "profile" | "orders")}
-            className="relative flex-1 md:mx-3 flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-sm md:text-base font-normal md:font-semibold transition-colors duration-300"
+            className="relative flex-1 md:mx-3 flex items-center justify-center gap-2 py-3 md:py-4 px-6 rounded-xl text-sm md:text-base font-normal md:font-semibold transition-colors duration-300"
           >
             {/* Animated Background */}
             {isActive && (
@@ -43,7 +43,7 @@ export default function DashboardNav({
               }`}
             >
               <Icon className="w-5 h-5" />
-              {tab.label}
+             <span className="hidden md:flex"> {tab.label} </span> <span className="md:hidden">{tab.mlabel}</span>
             </span>
           </button>
         );

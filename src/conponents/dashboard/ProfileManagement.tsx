@@ -179,7 +179,7 @@ const [profile, setProfile] = useState<UserProfile>({
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-800 flex items-center gap-3">
           <User className="w-8 h-8 text-orange-600" />
           Profile Information
         </h2>

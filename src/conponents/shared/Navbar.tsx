@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { GoHomeFill } from "react-icons/go";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -59,20 +60,20 @@ const profileLinks = [
 ];
 
 const mobileMenuVariants = {
-  hidden: { opacity: 0, y: -20 },
+  hidden: { opacity: 0, x: 20 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       staggerChildren: 0.08,
       delayChildren: 0.1,
     },
   },
-  exit: { opacity: 0, x: -20 },
+  exit: { opacity: 0, x: 20 },
 };
 
 const menuItemVariants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: 20 },
   visible: { opacity: 1, x: 0 },
 };
 
@@ -154,15 +155,15 @@ export default function Navbar() {
     if (data?.data) {
       dispatch(setUser(data.data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
     <nav
       className="fixed bottom-0 left-0 md:sticky md:top-0 md:bottom-auto w-full z-50 bg-gray-900/95 text-white shadow-md transition-all duration-300"
     >
-      <div className=" mx-auto px-6 flex justify-between items-center h-18">
+      <div className=" mx-auto px-6 flex justify-between items-center h-12 md:h-18">
         {/* Logo */}
-        <Link href="/" className="text-4xl font-bold tracking-wide flex ">
+        <Link href="/" className="text-4xl font-bold tracking-wide hidden md:flex ">
           <Image
             src="/pplogo.png"
             alt="Logo"
@@ -264,7 +265,7 @@ export default function Navbar() {
             </li>
           ) : (
             <>
-              <Button className="ml-5" onClick={() => router.push("/signin")}>
+              <Button className="ml-3 py-2" size="au" onClick={() => router.push("/signin")}>
                 Sign In
               </Button>
             </>
@@ -272,16 +273,20 @@ export default function Navbar() {
         </ul>
 
         {/* Mobile Hamburger */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="md:hidden flex flex-1 items-center justify-between gap-4"> 
+            
+            <button><GoHomeFill className="size-7" /></button>
+
           <button
-            onClick={toggleProfile}
+            // onClick={toggleProfile}
+            onClick={()=>router.push("/dashboard")}
             className="relative hover:text-orange-400 transition cursor-pointer"
           >
             <FaUserCircle size={28} />
-            {profileOpen && (
+            {/* {profileOpen && (
               <ul
                 ref={menuRef2}
-                className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn"
+                className="absolute bottom-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn"
               >
                 {profileLinks.map((link) => (
                   <li key={link.name}>
@@ -307,7 +312,7 @@ export default function Navbar() {
                   </li>
                 ))}
               </ul>
-            )}
+            )} */}
           </button>
 
           <button
@@ -349,7 +354,7 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="md:hidden bg-white text-black px-6 pb-4 space-y-2 overflow-hidden "
+            className="md:hidden bg-white text-black px-6 pb-4 space-y-2 overflow-hidden absolute bottom-12 right-0 border border-gray-300 rounded-l-md"
           >
             {menuLinks.map((link) => (
               <motion.li
@@ -419,8 +424,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-//  ${
-// scrolled
-//   ? "md:bg-white md:text-black md:shadow-lg md:sticky"
-//   : "md:absolute md:bg-transparent md:text-white md:shadow-none"}
