@@ -11,7 +11,7 @@ interface Props {
   profileOpen: boolean;
   setProfileOpen: (val: boolean) => void;
   handleLogout: () => void;
-  profileRef: React.RefObject<HTMLDivElement>;
+  profileRef: React.RefObject<HTMLLIElement>;
 }
 
 export default function DesktopNavbar({

@@ -11,13 +11,14 @@ import { BsGoogle } from "react-icons/bs";
 import { setUser } from "@/redux/features/authSlice";
 import { useAppDispatch } from "@/redux/features/hook";
 import LogoPP from "@/conponents/shared/LogoPP";
+import Image from "next/image";
 
 export default function SignIn() {
   const router = useRouter();
 
   const [login, { isLoading }] = useLoginMutation();
   const [googleLogin] = useGoogleLoginMutation();
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -40,10 +41,12 @@ export default function SignIn() {
     try {
       const res = await login(formData).unwrap();
       if (res.success) {
-        dispatch(setUser({
-  user: res.data,
-  token: res.accessToken
-}));
+        dispatch(
+          setUser({
+            user: res.data,
+            token: res.accessToken,
+          }),
+        );
         router.push("/"); // redirect after login
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,10 +66,27 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 px-4">
-      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
-        <LogoPP/>
-        <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
+    <div className="h-screen flex items-center justify-center  text-gray-900 my-8">
+
+      <div className="h-screen w-1/2 hidden md:flex items-center justify-center py-8 ">
+        <Image
+          src="/login3.png"
+          alt="Login Image"
+          width={2000}
+          height={2000}
+          className="h-full w-auto object-contain rounded-md"
+        />
+      </div>
+ 
+      <div className="w-full md:w-1/2 max-w-md bg-white  rounded-2xl px-4 py-4 md:px-8">
+        <LogoPP />
+
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-center">Welcome Back</h2>
+          <p className="text-center text-sm font-normal">
+            Sign in to access your account
+          </p>
+        </div>
 
         {error && (
           <div className="mb-4 text-sm text-red-600 bg-red-100 p-2 rounded">
@@ -138,11 +158,11 @@ export default function SignIn() {
         </button>
 
         {/* Sign Up Link */}
-        <p className="mt-6 text-center text-sm">
+        <p className="py-6 text-center text-sm">
           Don’t have an account?{" "}
           <button
             onClick={() => router.push("/signup")}
-            className="text-blue-600 hover:underline font-medium"
+            className="text-primary cursor-pointer hover:underline font-medium"
           >
             Sign Up
           </button>

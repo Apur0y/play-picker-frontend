@@ -1,6 +1,8 @@
 "use client";
 import Button from "@/conponents/Reuseable/Button";
+import LogoPP from "@/conponents/shared/LogoPP";
 import { useCreateuserMutation } from "@/redux/api/users/users";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -84,78 +86,140 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 p-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
+    <div className="min-h-screen flex items-center justify-center  text-gray-900 ">
+      <div className="h-screen w-1/2 hidden md:flex items-center justify-center py-8 ">
+        <Image
+          src="/login3.png"
+          alt="Login Image"
+          width={2000}
+          height={2000}
+          className="h-full w-auto object-contain rounded-md"
+        />
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
+      <div className="w-full max-w-md bg-white p-6 rounded-xl ">
+        <LogoPP />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-center">
+            Create your account
+          </h2>
+          <p className="text-center text-sm font-normal">
+            Welcome! Please enter your details to register
+          </p>
+        </div>
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Full Name */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
 
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
+          {/* Phone & Address Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
 
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg p-2"
-          />
-          {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
-          {success && <p className="text-green-600 text-sm mb-3">{success}</p>}
+            <div>
+              <label className="block text-sm font-medium mb-1">Address</label>
+              <input
+                type="text"
+                name="address"
+                required
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Enter your address"
+                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+          </div>
 
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              required
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Re-enter your password"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          {/* Error / Success */}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          {success && <p className="text-green-600 text-sm">{success}</p>}
+
+          {/* Submit Button */}
           <Button className="w-full" type="submit" disabled={loading}>
-            {" "}
             {isLoading ? "Registering..." : "Sign Up"}
           </Button>
         </form>
+        <p className="py-6 text-center text-sm">
+          Don’t have an account?{" "}
+          <button
+            onClick={() => router.push("/signin")}
+            className="text-primary cursor-pointer hover:underline font-medium"
+          >
+            Sign In
+          </button>
+        </p>
       </div>
     </div>
   );

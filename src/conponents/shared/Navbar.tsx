@@ -110,11 +110,19 @@ export default function Navbar() {
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const user = useAppSelector((state) => state.auth?.user);
 
-  const handleLogout = async () => {
+const handleLogout = async () => {
+  try {
     dispatch(logoutUser());
-    await logout({});
-    toast("Logout Successfull!");
-  };
+    await logout({}).unwrap();
+
+    toast.success("Logout Successful!");
+
+    router.push("/");
+    router.refresh(); // refresh server components
+  } catch (error) {
+    toast.error("Logout failed");
+  }
+};
 
   useEffect(() => {
     const handleScroll = () => {

@@ -6,11 +6,33 @@ import OrderManagement from "@/conponents/dashboard/OrderManagement";
 import DashboardNav from "@/conponents/dashboard/DashboardNav";
 import Sidebar from "@/conponents/dashboard/Sidebar";
 import { useAppSelector } from "@/redux/features/hook";
+import { GoHomeFill } from "react-icons/go";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/redux/features/authSlice";
+import { useLogoutMutation } from "@/redux/api/auth/auth";
+import { toast } from "sonner";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<"profile" | "orders">("profile");
   const user = useAppSelector((state) => state.auth?.user);
-  console.log(user);
+  const router = useRouter();
+  const dispatch =useDispatch();
+    const [logout] = useLogoutMutation();
+
+const handleLogout = async () => {
+  try {
+    dispatch(logoutUser());
+    await logout({}).unwrap();
+
+    toast.success("Logout Successful!");
+
+    router.refresh(); // refresh server components
+    router.push("/");
+  } catch (error) {
+    toast.error("Logout failed");
+  }
+};
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 pt-4 px-4 sm:px-6 lg:px-8">
@@ -33,14 +55,15 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
+            <button className="cursor-pointer" onClick={() => router.push("/")}>
+              <GoHomeFill className="size-8 md:size-10 text-primary border rounded-full p-1 hover:scale-105" />
+            </button>
+            <button onClick={()=>handleLogout()} className="flex cursor-pointer items-center gap-2 bg-primary hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
               <LogOut className="size-4 md:w-5 md:h-5" />
               <span className="hidden md:flex">Logout</span>
             </button>
           </div>
         </div>
-
-    
       </div>
 
       {/* Main Content */}

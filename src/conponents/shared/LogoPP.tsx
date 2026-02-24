@@ -1,22 +1,21 @@
-import { Link } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function LogoPP() {
+    const router =useRouter();
   return (
-    <div>
-          
+    <div onClick={()=>router.push("/")} className='flex justify-center'> 
           <Image
             src="/pplogo.png"
             alt="Logo"
             width={400}
             height={400}
-            className="w-20 h-20 object-contain"
+            className="w-40 h-40 object-contain"
           />
-          <div className="text-2xl flex items-center uppercase">
+          {/* <div className="text-2xl flex items-center uppercase">
             <span className=" ">Play</span>
             <span className=" ">Picker</span>
-          </div>
+          </div> */}
     </div>
   )
 }
