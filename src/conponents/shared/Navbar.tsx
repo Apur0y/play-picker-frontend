@@ -13,7 +13,11 @@ import {
   FaFutbol,
   FaHockeyPuck,
 } from "react-icons/fa";
-import { useGetMeQuery, useLoginMutation, useLogoutMutation } from "@/redux/api/auth/auth";
+import {
+  useGetMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+} from "@/redux/api/auth/auth";
 import Button from "../Reuseable/Button";
 import { useRouter } from "next/navigation";
 import { logoutUser, setUser } from "@/redux/features/authSlice";
@@ -98,18 +102,18 @@ export default function Navbar() {
   const router = useRouter();
 
   const { data } = useGetMeQuery({});
-  const [logout]=useLogoutMutation();
+  const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const user = useAppSelector((state) => state.auth?.user);
 
-  const handleLogout=async()=>{
+  const handleLogout = async () => {
     dispatch(logoutUser());
     await logout({});
     toast("Logout Successfull!");
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,9 +129,10 @@ export default function Navbar() {
       if (
         menuRef.current &&
         event.target &&
-        !menuRef.current.contains(event.target as Node) && menuRef2.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        menuRef2.current &&
         event.target &&
-        !menuRef2.current.contains(event.target as Node) 
+        !menuRef2.current.contains(event.target as Node)
       ) {
         setProfileOpen(false);
       }
@@ -153,8 +158,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={` top-0 left-0 w-full z-50 transition-all duration-700 bg-gray-900/95 text-white sticky shadow-md
-  `}
+      className="fixed bottom-0 left-0 md:sticky md:top-0 md:bottom-auto w-full z-50 bg-gray-900/95 text-white shadow-md transition-all duration-300"
     >
       <div className=" mx-auto px-6 flex justify-between items-center h-18">
         {/* Logo */}
@@ -260,7 +264,9 @@ export default function Navbar() {
             </li>
           ) : (
             <>
-              <Button className="ml-5" onClick={() => router.push("/signin")}>Sign In</Button>
+              <Button className="ml-5" onClick={() => router.push("/signin")}>
+                Sign In
+              </Button>
             </>
           )}
         </ul>
@@ -273,15 +279,31 @@ export default function Navbar() {
           >
             <FaUserCircle size={28} />
             {profileOpen && (
-              <ul  ref={menuRef2} className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+              <ul
+                ref={menuRef2}
+                className="absolute right-0 mt-2 w-40 bg-white/30 backdrop-blur-xl text-black rounded-lg shadow-lg overflow-hidden animate-fadeIn"
+              >
                 {profileLinks.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="block px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
-                    >
-                      {link.name}
-                    </Link>
+                    {link.name === "Logout" ? (
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setProfileOpen(false);
+                        }}
+                        className="block w-full cursor-pointer text-center px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
+                      >
+                        Logout
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="block px-4 py-2 hover:bg-orange-100 hover:text-orange-600 transition border-b border-white/20"
+                        onClick={() => setProfileOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

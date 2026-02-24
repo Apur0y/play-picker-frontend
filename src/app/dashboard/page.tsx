@@ -13,27 +13,24 @@ export default function DashboardPage() {
     console.log(user);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-10">
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex  justify-between items-start mb-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="bg-gradient-to-br from-primary to-primary p-3 rounded-xl">
-                <LayoutDashboard className="w-8 h-8 text-white" />
+              <div className="bg-linear-to-br from-primary to-primary p-3 rounded-xl">
+                <LayoutDashboard className="md:w-8 md:h-8 text-white" />
               </div>
-              <h1 className="text-4xl font-bold text-gray-800">Dashboard</h1>
+              <h1 className="md:text-4xl font-bold text-gray-800">Dashboard</h1>
             </div>
-            <p className="text-gray-600">Manage your profile and orders</p>
+            <p className="text-gray-600 text-sm md:text-base">Manage your profile and orders</p>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-semibold py-2 px-4 rounded-lg shadow transition transform hover:scale-105">
-              <Settings className="w-5 h-5" />
-              Settings
-            </button>
+
             <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition transform hover:scale-105">
-              <LogOut className="w-5 h-5" />
-              Logout
+              <LogOut className="md:w-5 md:h-5" />
+             <span className="hidden md:flex">Logout</span> 
             </button>
           </div>
         </div>
