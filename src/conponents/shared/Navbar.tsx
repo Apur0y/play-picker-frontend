@@ -158,12 +158,13 @@ export default function Navbar() {
   }, [data, dispatch]);
 
   return (
-    <nav
-      className="fixed bottom-0 left-0 md:sticky md:top-0 md:bottom-auto w-full z-50 bg-gray-900/95 text-white shadow-md transition-all duration-300"
-    >
+    <nav className="fixed bottom-0 left-0 md:sticky md:top-0 md:bottom-auto w-full z-50 bg-gray-900/95 text-white shadow-md transition-all duration-300">
       <div className=" mx-auto px-6 flex justify-between items-center h-12 md:h-18">
         {/* Logo */}
-        <Link href="/" className="text-4xl font-bold tracking-wide hidden md:flex ">
+        <Link
+          href="/"
+          className="text-4xl font-bold tracking-wide hidden md:flex "
+        >
           <Image
             src="/pplogo.png"
             alt="Logo"
@@ -265,7 +266,11 @@ export default function Navbar() {
             </li>
           ) : (
             <>
-              <Button className="ml-3 py-2" size="au" onClick={() => router.push("/signin")}>
+              <Button
+                className="ml-3 py-2"
+                size="au"
+                onClick={() => router.push("/signin")}
+              >
                 Sign In
               </Button>
             </>
@@ -273,16 +278,26 @@ export default function Navbar() {
         </ul>
 
         {/* Mobile Hamburger */}
-        <div className="md:hidden flex flex-1 items-center justify-between gap-4"> 
-            
-            <button><GoHomeFill className="size-7" /></button>
+        <div className="md:hidden flex flex-1 items-center justify-between gap-4">
+          <button onClick={() => router.push("/")}>
+            <GoHomeFill className="size-7" />
+          </button>
 
-          <button
+            {user? 
+            <button
             // onClick={toggleProfile}
-            onClick={()=>router.push("/dashboard")}
+            onClick={() => router.push("/dashboard")}
             className="relative hover:text-orange-400 transition cursor-pointer"
           >
             <FaUserCircle size={28} />
+            </button>: <button
+            // onClick={toggleProfile}
+            onClick={() => router.push("/signin")}
+            className="relative hover:text-orange-400 transition cursor-pointer"
+          >
+            <FaUserCircle size={28} />
+            </button>}
+         
             {/* {profileOpen && (
               <ul
                 ref={menuRef2}
@@ -313,7 +328,7 @@ export default function Navbar() {
                 ))}
               </ul>
             )} */}
-          </button>
+          
 
           <button
             onClick={toggleMenu}

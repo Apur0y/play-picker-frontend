@@ -24,6 +24,7 @@ interface Props {
   profileRef: React.RefObject<HTMLDivElement>;
 }
 
+
 export default function MobileNavbar({
   user,
   profileOpen,
@@ -31,6 +32,8 @@ export default function MobileNavbar({
   handleLogout,
   profileRef,
 }: Props) {
+
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [sportsOpen, setSportsOpen] = useState(false);
 

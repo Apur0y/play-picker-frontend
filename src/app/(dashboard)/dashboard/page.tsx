@@ -40,13 +40,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Welcome Section */}
-        {/* <div className=" rounded-2xl p-8 text-primary shadow-lg border">
-          <h2 className="text-3xl font-bold mb-2">Welcome Back! 👋</h2>
-          <p className="text-orange-950">
-            Manage your account and view your order history. Stay updated with your video production status.
-          </p>
-        </div> */}
+    
       </div>
 
       {/* Main Content */}
