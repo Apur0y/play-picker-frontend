@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IPlan } from "../packages/CustomPackage";
+import { IPlan } from "../packages/PackagePage";
 import Button from "../Reuseable/Button";
 
 interface CheckoutModalProps {

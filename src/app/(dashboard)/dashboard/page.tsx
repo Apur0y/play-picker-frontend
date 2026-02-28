@@ -59,12 +59,12 @@ const handleLogout = async () => {
             <button className="cursor-pointer" onClick={() => router.push("/")}>
               <GoHomeFill className="size-8 md:size-10 text-primary border rounded-full p-1 hover:scale-105" />
             </button>
-            {/* <button onClick={()=>handleLogout()} className="flex cursor-pointer items-center gap-2 bg-primary hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
+            <button onClick={()=>handleLogout()} className="flex cursor-pointer items-center gap-2 bg-primary hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
               <LogOut className="size-4 md:w-5 md:h-5" />
               <span className="hidden md:flex">Logout</span>
-            </button> */}
-            <Button  onClick={()=>handleLogout()} > <LogOut className="size-4 md:w-5 md:h-5" />
-              <span className="hidden md:flex">Logout</span> </Button>
+            </button>
+            {/* <Button  onClick={()=>handleLogout()} > <LogOut className="size-4 md:w-5 md:h-5" />
+              <span className="hidden md:flex">Logout</span> </Button> */}
           </div>
         </div>
       </div>
@@ -123,13 +123,13 @@ const handleLogout = async () => {
             Quick Actions
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="bg-linear-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button onClick={()=>router.push("/packages")} className="bg-linear-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 cursor-pointer">
               Create New Order
             </button>
-            <button className="bg-linear-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button onClick={()=>router.push("/packages/#packages")} className="bg-linear-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 cursor-pointer">
               View Packages
             </button>
-            <button className="bg-linear-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button onClick={()=>router.push("/contact")} className="bg-linear-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 cursor-pointer">
               Contact Support
             </button>
           </div>

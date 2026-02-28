@@ -55,7 +55,6 @@ const menuLinks = [
 const profileLinks = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Orders", href: "/dashboard" },
-  { name: "Settings", href: "/settings" },
   { name: "Logout", href: "/logout" },
 ];
 
@@ -109,6 +108,7 @@ export default function Navbar() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const user = useAppSelector((state) => state.auth?.user);
+  console.log(user)
 
 const handleLogout = async () => {
   try {
@@ -138,10 +138,7 @@ const handleLogout = async () => {
       if (
         menuRef.current &&
         event.target &&
-        !menuRef.current.contains(event.target as Node) &&
-        menuRef2.current &&
-        event.target &&
-        !menuRef2.current.contains(event.target as Node)
+        !menuRef.current.contains(event.target as Node) 
       ) {
         setProfileOpen(false);
       }

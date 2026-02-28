@@ -9,6 +9,7 @@ import { useInitiatePaymentMutation } from "@/redux/api/payment/paymentApi";
 import { toast } from "sonner";
 import CheckoutModal from "../shared/CheckOutModal";
 import HeaderMain from "../Reuseable/HeaderMain";
+import { useAppSelector } from "@/redux/features/hook";
 
 export interface IPlan {
   _id: string;
@@ -32,22 +33,20 @@ export default function PackagesPage() {
   const router = useRouter();
   const { data: packages } = useGetAllPackagesQuery({});
   const [payment, { isLoading }] = useInitiatePaymentMutation();
-
-  console.log(packages);
+ const user = useAppSelector((state)=>state.auth?.user)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     customerName: "",
     customerEmail: "",
-    customerPhone: "",
+    customerPhone: "00000000000",
   });
   const [selectedPackage, setselectedPackage] = useState<IPlan | null>(null);
 
-  const user = "Apu";
-
   const handleClick = (pkg: IPlan) => {
+    console.log("here is tlkhha")
     if (!user) {
-      router.push("/signIn");
+      router.push("/signin");
       return;
     }
 
@@ -91,7 +90,7 @@ export default function PackagesPage() {
 
   return (
     <Container className="mx-auto">
-      <div className="bgwhite py-20 text-white">
+      <div id="packages" className="bgwhite py-20 text-white">
           <HeaderMain title="Our" subtitle="Packages" description="Choose the Right Plan for Your Needs." center />
               
         <div className="flex justify-center flex-wrap mt-3 gap-10">

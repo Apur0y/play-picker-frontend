@@ -1,6 +1,6 @@
 import Packages from '@/conponents/home/Packages'
 import CustomizePackage from '@/conponents/packages/CumtomizePackages'
-import PackagesPage from '@/conponents/packages/CustomPackage'
+import PackagesPage from '@/conponents/packages/PackagePage'
 import React from 'react'
 
 export default function page() {
