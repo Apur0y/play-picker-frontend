@@ -12,9 +12,10 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "@/redux/features/authSlice";
 import { useLogoutMutation } from "@/redux/api/auth/auth";
 import { toast } from "sonner";
+import Button from "@/conponents/Reuseable/Button";
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<"profile" | "orders">("profile");
+  const [activeTab, setActiveTab] = useState<"profile" | "orders">("orders");
   const user = useAppSelector((state) => state.auth?.user);
   const router = useRouter();
   const dispatch =useDispatch();
@@ -58,10 +59,12 @@ const handleLogout = async () => {
             <button className="cursor-pointer" onClick={() => router.push("/")}>
               <GoHomeFill className="size-8 md:size-10 text-primary border rounded-full p-1 hover:scale-105" />
             </button>
-            <button onClick={()=>handleLogout()} className="flex cursor-pointer items-center gap-2 bg-primary hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
+            {/* <button onClick={()=>handleLogout()} className="flex cursor-pointer items-center gap-2 bg-primary hover:bg-red-700 text-white font-semibold py-2 px-2 md:px-4 rounded-lg shadow transition transform hover:scale-105">
               <LogOut className="size-4 md:w-5 md:h-5" />
               <span className="hidden md:flex">Logout</span>
-            </button>
+            </button> */}
+            <Button  onClick={()=>handleLogout()} > <LogOut className="size-4 md:w-5 md:h-5" />
+              <span className="hidden md:flex">Logout</span> </Button>
           </div>
         </div>
       </div>
@@ -120,13 +123,13 @@ const handleLogout = async () => {
             Quick Actions
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button className="bg-linear-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
               Create New Order
             </button>
-            <button className="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button className="bg-linear-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
               View Packages
             </button>
-            <button className="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+            <button className="bg-linear-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
               Contact Support
             </button>
           </div>

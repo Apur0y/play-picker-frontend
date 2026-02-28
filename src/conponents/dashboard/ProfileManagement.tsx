@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { User, Mail, Phone, MapPin, Edit2, Save, X } from "lucide-react";
 import { useAppSelector } from "@/redux/features/hook";
+import Button from "../Reuseable/Button";
 
 type UserProfile = {
   name: string;
@@ -14,15 +15,15 @@ type UserProfile = {
 
 export default function ProfileManagement() {
   const [isEditing, setIsEditing] = useState(false);
-   const user = useAppSelector((state) => state.auth?.user);
-const [profile, setProfile] = useState<UserProfile>({
-  name: "",
-  email: "",
-  phone: "",
-  address: "",
-  role: "",
-  joinDate: ""
-});
+  const user = useAppSelector((state) => state.auth?.user);
+  const [profile, setProfile] = useState<UserProfile>({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    role: "",
+    joinDate: ""
+  });
 
 
 
@@ -51,19 +52,19 @@ const [profile, setProfile] = useState<UserProfile>({
   };
 
   useEffect(() => {
-  if (user) {
-    setProfile({
-      name: user.name || "",
-      email: user.email || "",
-      phone: user.phone || "",
-      address: user.address || "",
-      role: user.role || "",
-      joinDate: user.createdAt
-        ? new Date(user.createdAt).toLocaleDateString()
-        : "",
-    });
-  }
-}, [user]);
+    if (user) {
+      setProfile({
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+        address: user.address || "",
+        role: user.role || "",
+        joinDate: user.createdAt
+          ? new Date(user.createdAt).toLocaleDateString()
+          : "",
+      });
+    }
+  }, [user]);
 
   if (isEditing) {
     return (
@@ -141,31 +142,19 @@ const [profile, setProfile] = useState<UserProfile>({
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition"
               />
             </div>
-            {/* <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Country
-              </label>
-              <input
-                type="text"
-                name="country"
-                value={editData.address}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-600 transition"
-              />
-            </div> */}
           </div>
 
           <div className="flex gap-4 pt-6">
             <button
               onClick={handleSave}
-              className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition transform hover:scale-105"
+              className="flex-1 bg-primary hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition transform cursor-pointer hover:scale-105"
             >
               <Save className="w-5 h-5" />
               Save Changes
             </button>
             <button
               onClick={handleCancel}
-              className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition"
+              className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer"
             >
               <X className="w-5 h-5" />
               Cancel
@@ -183,13 +172,11 @@ const [profile, setProfile] = useState<UserProfile>({
           <User className="w-8 h-8 text-orange-600" />
           Profile Information
         </h2>
-        <button
-          onClick={handleEdit}
-          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition transform hover:scale-105"
-        >
-          <Edit2 className="w-5 h-5" />
+
+        <Button onClick={handleEdit} size="au">
+          <Edit2 className="w-5 h-5 mr-2" />
           Edit
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-4">

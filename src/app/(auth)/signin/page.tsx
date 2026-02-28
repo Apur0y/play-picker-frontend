@@ -66,7 +66,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center  text-gray-900 my-8">
+    <div className="h-screen flex items-center justify-center  text-gray-900 py-8">
 
       <div className="h-screen w-1/2 hidden md:flex items-center justify-center py-8 ">
         <Image
