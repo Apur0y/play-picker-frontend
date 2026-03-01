@@ -17,8 +17,8 @@ export default function ContactPage() {
       platform: "Fiverr",
       value: "Visit Profile",
       href: "https://www.fiverr.com/s/zWpdplo",
-      color: "text-green-400",
-      bgColor: "bg-green-400/10",
+      color: "text-white",
+      bgColor: "bg-green-400",
       description: "Professional services",
     },
     {
@@ -26,8 +26,8 @@ export default function ContactPage() {
       platform: "Email",
       value: "game0play24@gmail.com",
       href: "mailto:game0play24@gmail.com",
-      color: "text-blue-400",
-      bgColor: "bg-blue-400/10",
+      color: "text-red-400",
+      bgColor: "bg-red-400/10",
       description: "Detailed inquiries",
     },
 
@@ -91,7 +91,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="min-h-screen bg-linear-to-br from-[#0d1117] via-[#1a1f2e] to-[#0d1117] text-white p-6 relative overflow-hidden">
+    <section className="min-h-screen bg-white text-gray-900 p-6 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -117,10 +117,10 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <h1 className="text-5xl lg:text-7xl font-bold mb-6  bg-clip-text ">
                 Let&lsquo;s Talk
               </h1>
-              <p className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
+              <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
                 Ready to bring your ideas to life? Let&apos;s create something
                 amazing together. Choose your preferred way to connect.
               </p>
@@ -192,7 +192,7 @@ export default function ContactPage() {
                 <h3 className={`text-lg font-semibold mb-1 ${method.color}`}>
                   {method.platform}
                 </h3>
-                <p className="text-white font-medium text-sm mb-2">
+                <p className=" font-medium text-sm mb-2">
                   {method.value}
                 </p>
                 <p className="text-gray-400 text-xs">{method.description}</p>
