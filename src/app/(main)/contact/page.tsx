@@ -11,45 +11,46 @@ export default function ContactPage() {
     threshold: 0.1,
   });
 
-  const contactMethods = [
-    {
-      icon: <TbBrandFiverr className="w-6 h-6" />,
-      platform: "Fiverr",
-      value: "Visit Profile",
-      href: "https://www.fiverr.com/s/zWpdplo",
-      color: "text-white",
-      bgColor: "bg-green-400",
-      description: "Professional services",
-    },
-    {
-      icon: <Mail className="w-6 h-6" />,
-      platform: "Email",
-      value: "game0play24@gmail.com",
-      href: "mailto:game0play24@gmail.com",
-      color: "text-red-400",
-      bgColor: "bg-red-400/10",
-      description: "Detailed inquiries",
-    },
+const contactMethods = [
+  {
+    icon: <TbBrandFiverr className="w-6 h-6" />,
+    platform: "Fiverr",
+    value: "Visit Profile",
+    href: "https://www.fiverr.com/s/zWpdplo",
+    color: "text-white",
+    bgColor: "bg-[#1DBF73]", // Official Fiverr green
+    description: "Professional services",
+  },
+  {
+    icon: <Mail className="w-6 h-6" />,
+    platform: "Email",
+    value: "game0play24@gmail.com",
+    href: "mailto:game0play24@gmail.com",
+    color: "text-[#EA4335]", // Gmail red
+    bgColor: "bg-[#EA4335]/10",
+    description: "Detailed inquiries",
+  },
+  {
+    icon: <MessageCircle className="w-6 h-6" />,
+    platform: "WhatsApp",
+    value: "+8801786209895",
+    href: "https://wa.me/8801786209895",
+    color: "text-[#25D366]", // WhatsApp green
+    bgColor: "bg-[#25D366]/10",
+    description: "Quick responses",
+  },
+  {
+    icon: <MessageCircle className="w-6 h-6" />,
+    platform: "Instagram",
+    value: "@playpicker",
+    href: "https://www.instagram.com/playpicker/",
+    color: "text-white", // Instagram pink
+  bgColor: "bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] via-[#8134AF] to-[#515BD4]",
 
-    {
-      icon: <MessageCircle className="w-6 h-6" />,
-      platform: "Instagram",
-      value: "@playpicker",
-      href: "https://www.instagram.com/playpicker/",
-      color: "text-pink-400",
-      bgColor: "bg-pink-400/10",
-      description: "Creative work",
-    },
-    {
-      icon: <MessageCircle className="w-6 h-6" />,
-      platform: "WhatsApp",
-      value: "+8801786209895",
-      href: "https://wa.me/8801786209895",
-      color: "text-green-400",
-      bgColor: "bg-green-400/10",
-      description: "Quick responses",
-    },
-  ];
+    description: "Creative work",
+  },
+  
+];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -137,10 +138,10 @@ export default function ContactPage() {
                   className="
       group relative inline-flex items-center gap-3
       px-8 py-4 rounded-2xl font-semibold text-lg
-      bg-primary/70 backdrop-blur-xl
-      border border-white/20
+      bg-primary text-white backdrop-blur-xl
+      border border-primary
       shadow-lg shadow-black/20
-      hover:bg-white/20
+      hover:bg-white/20 hover:text-primary 
       hover:shadow-blue-500/30
       transition-all duration-300
     "
@@ -148,7 +149,7 @@ export default function ContactPage() {
                   {/* Glass highlight */}
                   <span className="absolute inset-0 rounded-2xl bg-linear-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />
 
-                  <Calendar className="w-5 h-5 text-white" />
+                  <Calendar className="w-5 h-5  " />
                   <span className="relative z-10">Book a Meeting</span>
 
                   <div className="relative z-10 w-0 group-hover:w-5 transition-all duration-300 overflow-hidden">
@@ -176,7 +177,7 @@ export default function ContactPage() {
                 animate="visible"
                 whileHover="hover"
                 custom={index}
-                className={`${method.bgColor} backdrop-blur-sm border border-gray-800 rounded-2xl p-6 group cursor-pointer hover:border-gray-600 transition-all duration-300`}
+                className={`${method.bgColor} backdrop-blur-sm border border-gray-200 rounded-2xl p-6 group cursor-pointer hover:border-gray-600 transition-all `}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div
@@ -184,7 +185,7 @@ export default function ContactPage() {
                   >
                     <div className={method.color}>{method.icon}</div>
                   </div>
-                  <div className="text-2xl opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="text-2xl opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 ">
                     ↗
                   </div>
                 </div>
