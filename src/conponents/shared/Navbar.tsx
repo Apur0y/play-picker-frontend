@@ -164,7 +164,7 @@ const handleLogout = async () => {
 
   return (
     <nav className="fixed bottom-0 left-0 md:sticky md:top-0 md:bottom-auto w-full z-50 bg-gray-900/95 text-white shadow-md transition-all duration-300">
-      <div className=" mx-auto px-6 flex justify-between items-center h-12 md:h-18">
+      <div className=" mx-auto px-6 flex justify-between items-center h-18 ">
         {/* Logo */}
         <Link
           href="/"

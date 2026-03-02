@@ -12,6 +12,23 @@ function PaymentSuccessContent() {
   const tranId = searchParams.get("tran_id");
   const [transactionId, setTransactionId] = useState<string | null>(null);
 
+  useEffect(() => {
+  // Replace current history entry to prevent POST resubmission
+  window.history.replaceState(null, '', window.location.href);
+
+  const params = new URLSearchParams(window.location.search);
+  const tranId = params.get('tran_id');
+  const valId = params.get('val_id');
+
+  if (!tranId) {
+    router.replace('/payment/fail');
+    return;
+  }
+
+  // fetch payment status from your backend using tranId
+  // fetchPaymentStatus(tranId);
+}, []);
+
   // Get transactionId from localStorage
   useEffect(() => {
     const id = tranId || localStorage.getItem("transactionId");

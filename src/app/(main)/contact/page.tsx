@@ -196,7 +196,7 @@ const contactMethods = [
                 <p className=" font-medium text-sm mb-2">
                   {method.value}
                 </p>
-                <p className="text-gray-400 text-xs">{method.description}</p>
+                <p className="text-gray-900 text-xs">{method.description}</p>
               </motion.a>
             ))}
           </motion.div>

@@ -4,7 +4,6 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
 
-  console.log("Here is token",token)
 
   const { pathname } = request.nextUrl;
 
@@ -15,14 +14,10 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Optional: Prevent logged-in users from going to signin
+  // Prevent logged-in users from going to signin
   if (pathname.startsWith("/signin") && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/dashboard/:path*", "/signin"],
-};
