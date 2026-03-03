@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { ShoppingCart, Calendar, DollarSign, Eye, Download, Trash2 } from "lucide-react";
+import { useGetOrdersByBuyerQuery } from "@/redux/api/orders/orderApis";
+import { useAppSelector } from "@/redux/features/hook";
 
 interface Order {
   id: string;
@@ -12,6 +14,18 @@ interface Order {
 }
 
 export default function OrderManagement() {
+
+  const user=useAppSelector((state)=>state.auth.user);
+  console.log("THere is the usre in orsder",user);
+const { data: order, isLoading } = useGetOrdersByBuyerQuery(
+  user?._id,
+  {
+    skip: !user?._id,
+  }
+);
+    console.log("THere is the usre in orsder",order);
+
+
   const [orders, setOrders] = useState<Order[]>([
     {
       id: "ORD-001",
@@ -46,6 +60,8 @@ export default function OrderManagement() {
       deliveryDate: "2024-11-28",
     },
   ]);
+
+
 
   const getStatusColor = (status: string) => {
     switch (status) {

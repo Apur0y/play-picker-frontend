@@ -68,12 +68,18 @@ export default function PackagesPage() {
 
     try {
       const payload = {
-        userId: formData.customerEmail,
+        userId: user?._id,
         packageId: selectedPackage._id,
         amount: selectedPackage.amount,
         customerName: formData.customerName,
         customerEmail: formData.customerEmail,
         customerPhone: formData.customerPhone,
+        instructions: "Follow this",
+    footageUrls: [],
+    deliveryTimeInDays: 5,
+    revisionCount: 2,
+    effects: "Circle",
+    additionalFeatures: ["Intro page","Background Music", "Smooth Transitions"]
       };
 
       const result = await payment(payload).unwrap();

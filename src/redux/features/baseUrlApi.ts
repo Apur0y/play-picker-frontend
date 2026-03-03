@@ -17,5 +17,5 @@ export const baseUrlApi = createApi({
     credentials:"include"
    }),
   endpoints: () => ({}),
-  tagTypes:["user","Sports", "Auth"]
+  tagTypes:["user","Sports", "Auth","Orders"]
 });
