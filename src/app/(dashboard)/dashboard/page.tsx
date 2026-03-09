@@ -13,9 +13,10 @@ import { logoutUser } from "@/redux/features/authSlice";
 import { useLogoutMutation } from "@/redux/api/auth/auth";
 import { toast } from "sonner";
 import Button from "@/conponents/Reuseable/Button";
+import OrderDetails from "@/conponents/dashboard/OrderDetails";
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<"profile" | "orders">("orders");
+  const [activeTab, setActiveTab] = useState<"profile" | "orders" | "details">("orders");
   const user = useAppSelector((state) => state.auth?.user);
   const router = useRouter();
   const dispatch =useDispatch();
@@ -83,9 +84,10 @@ const handleLogout = async () => {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 md:ml-5 xl:mx-0">
             {activeTab === "profile" && <ProfileManagement />}
-            {activeTab === "orders" && <OrderManagement />}
+            {activeTab === "orders" && <OrderManagement activeTab={activeTab} setActiveTab={setActiveTab} />}
+            {activeTab === "details" && <OrderDetails activeTab={activeTab} setActiveTab={setActiveTab} />}
           </div>
         </div>
 

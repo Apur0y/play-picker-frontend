@@ -3,8 +3,8 @@ import { User, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface DashboardNavProps {
-  activeTab: "profile" | "orders";
-  setActiveTab: (tab: "profile" | "orders") => void;
+  activeTab: "profile" | "orders" |"details";
+  setActiveTab: (tab: "profile" | "orders" |"details") => void;
 }
 
 export default function DashboardNav({
@@ -14,13 +14,14 @@ export default function DashboardNav({
   const tabs = [
     { id: "profile", label: "Profile Management",mlabel: "Profile ", icon: User },
     { id: "orders", label: "Order Management",mlabel:"Order", icon: ShoppingCart },
+    { id: "details", label: "Order Management",mlabel:"Order", icon: ShoppingCart },
   ];
 
   return (
     <div className="relative bg-white rounded-2xl shadow-lg p-2  md:mb-8 flex flex-row gap-2">
       {tabs.map((tab) => {
         const Icon = tab.icon;
-        const isActive = activeTab === tab.id;
+        const isActive =activeTab === tab.id || (tab.id === "orders" && activeTab === "details");
 
         return (
           <button

@@ -11,6 +11,7 @@ import {
 import { useGetOrdersByBuyerQuery } from "@/redux/api/orders/orderApis";
 import { useAppSelector } from "@/redux/features/hook";
 import { IOrder } from "../types/types";
+import Button from "../Reuseable/Button";
 
 interface Order {
   id: string;
@@ -21,7 +22,13 @@ interface Order {
   deliveryDate: string;
 }
 
-export default function OrderManagement() {
+interface DetailsdNavProps {
+  activeTab: "profile" | "orders" |"details";
+  setActiveTab: (tab: "profile" | "orders" |"details") => void;
+}
+
+
+export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNavProps) {
   const user = useAppSelector((state) => state.auth.user);
   console.log("THere is the usre in orsder", user);
   const { data: order, isLoading } = useGetOrdersByBuyerQuery(user?._id, {
@@ -29,40 +36,7 @@ export default function OrderManagement() {
   });
   console.log("THere is the usre in orsder", order?.data);
 
-  const [orders, setOrders] = useState<Order[]>([
-    {
-      id: "ORD-001",
-      sport: "Football",
-      date: "2024-12-10",
-      amount: 299,
-      status: "completed",
-      deliveryDate: "2024-12-15",
-    },
-    {
-      id: "ORD-002",
-      sport: "Soccer",
-      date: "2024-12-08",
-      amount: 199,
-      status: "shipped",
-      deliveryDate: "2024-12-20",
-    },
-    {
-      id: "ORD-003",
-      sport: "Basketball",
-      date: "2024-12-05",
-      amount: 249,
-      status: "pending",
-      deliveryDate: "2024-12-25",
-    },
-    {
-      id: "ORD-004",
-      sport: "Rugby",
-      date: "2024-11-20",
-      amount: 399,
-      status: "completed",
-      deliveryDate: "2024-11-28",
-    },
-  ]);
+
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -79,9 +53,7 @@ export default function OrderManagement() {
     }
   };
 
-  const handleDelete = (id: string) => {
-    setOrders((prev) => prev.filter((order) => order.id !== id));
-  };
+
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8 max-w-6xl">
@@ -92,7 +64,7 @@ export default function OrderManagement() {
         </h2>
         <div className="text-right">
           <p className="text-sm text-gray-600">Total Orders</p>
-          <p className="text-3xl font-bold text-green-600">{orders.length}</p>
+          <p className="text-3xl font-bold text-green-600">{order?.data.length}</p>
         </div>
       </div>
 
@@ -109,17 +81,12 @@ export default function OrderManagement() {
             <thead>
               <tr className="border-b-2 border-gray-200">
                 <th className="text-left py-4 px-4 font-semibold text-gray-700">
-                  Order ID
+                  Title
                 </th>
                 <th className="text-left py-4 px-4 font-semibold text-gray-700">
                   Sport
                 </th>
-                <th className="text-left py-4 px-4 font-semibold text-gray-700">
-                  Order Date
-                </th>
-                <th className="text-left py-4 px-4 font-semibold text-gray-700">
-                  Delivery Date
-                </th>
+              
                 <th className="text-left py-4 px-4 font-semibold text-gray-700">
                   Amount
                 </th>
@@ -159,11 +126,6 @@ export default function OrderManagement() {
                     <td className="py-4 px-4 text-gray-700">
                       {order.title || ""}
                     </td>
-
-                    <td className="py-4 px-4 text-gray-700">{orderDate}</td>
-
-                    <td className="py-4 px-4 text-gray-700">{deliveryDate}</td>
-
                     <td className="py-4 px-4">
                       <span className="font-semibold text-green-600 flex items-center gap-1">
                         <DollarSign className="w-4 h-4" />
@@ -185,22 +147,8 @@ export default function OrderManagement() {
                     </td>
 
                     <td className="py-4 px-4">
-                      <div className="flex gap-2">
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition transform hover:scale-110">
-                          <Eye className="w-4 h-4" />
-                        </button>
-
-                        <button className="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-lg transition transform hover:scale-110">
-                          <Download className="w-4 h-4" />
-                        </button>
-
-                        <button
-                          onClick={() => handleDelete(order._id)}
-                          className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg transition transform hover:scale-110"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                     
+                      <button onClick={()=>setActiveTab("details")} className=" hover:underline text-primary transition cursor-pointer">View Details</button>
                     </td>
                   </tr>
                 );

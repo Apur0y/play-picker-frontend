@@ -4,8 +4,8 @@ import { User, ShoppingCart, Home, LogOut, Settings, HelpCircle } from "lucide-r
 import Link from "next/link";
 
 interface SidebarProps {
-  activeTab: "profile" | "orders";
-  setActiveTab: (tab: "profile" | "orders") => void;
+  activeTab: "profile" | "orders" | "details";
+  setActiveTab: (tab: "profile" | "orders" |"details") => void;
 }
 
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
