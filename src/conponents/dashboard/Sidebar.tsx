@@ -41,7 +41,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
         </p>
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = activeTab === item.id;
+          const isActive =  activeTab === item.id || (item.id === "orders" && activeTab === "details");
           return (
             <button
               key={item.id}

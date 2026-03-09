@@ -25,10 +25,11 @@ interface Order {
 interface DetailsdNavProps {
   activeTab: "profile" | "orders" |"details";
   setActiveTab: (tab: "profile" | "orders" |"details") => void;
+  setSelectedOrder: (id: string) => void;
 }
 
 
-export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNavProps) {
+export default function OrderManagement({ activeTab, setActiveTab,setSelectedOrder }: DetailsdNavProps) {
   const user = useAppSelector((state) => state.auth.user);
   console.log("THere is the usre in orsder", user);
   const { data: order, isLoading } = useGetOrdersByBuyerQuery(user?._id, {
@@ -58,7 +59,7 @@ export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNav
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-800 flex items-center gap-3">
           <ShoppingCart className="w-8 h-8 text-green-600" />
           My Orders
         </h2>
@@ -77,7 +78,7 @@ export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNav
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full text-xs md:text-base">
             <thead>
               <tr className="border-b-2 border-gray-200">
                 <th className="text-left py-4 px-4 font-semibold text-gray-700">
@@ -135,7 +136,7 @@ export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNav
 
                     <td className="py-4 px-4">
                       <span
-                        className={`px-4 py-1 rounded-full text-sm font-semibold border ${getStatusColor(
+                        className={`px-4 py-1 rounded-full text-xs md:text-sm font-semibold border ${getStatusColor(
                           order.status,
                         )}`}
                       >
@@ -148,7 +149,11 @@ export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNav
 
                     <td className="py-4 px-4">
                      
-                      <button onClick={()=>setActiveTab("details")} className=" hover:underline text-primary transition cursor-pointer">View Details</button>
+                      <button 
+                      onClick={()=>{
+                        setActiveTab("details");
+                        setSelectedOrder(order?._id)}} 
+                      className=" hover:underline text-primary transition cursor-pointer">View Details</button>
                     </td>
                   </tr>
                 );
@@ -157,33 +162,6 @@ export default function OrderManagement({ activeTab, setActiveTab }: DetailsdNav
           </table>
         </div>
       )}
-
-   <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-  <div className="bg-linear-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
-    <p className="text-sm text-green-700 font-semibold">Completed</p>
-    <p className="text-2xl font-bold text-green-800">
-      {order?.data?.filter((o:IOrder) => o.status === "completed").length || 0}
-    </p>
-  </div>
-  
-  <div className="bg-linear-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 border border-yellow-200">
-    <p className="text-sm text-yellow-700 font-semibold">Pending</p>
-    <p className="text-2xl font-bold text-yellow-800">
-      {order?.data?.filter((o:IOrder) => o.status === "pending").length || 0}
-    </p>
-  </div>
-
-  <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
-    <p className="text-sm text-purple-700 font-semibold">Total Spent</p>
-    <p className="text-2xl font-bold text-purple-800">
-      $
-      {order?.data?.reduce(
-        (sum:number, o:IOrder) => sum + (o.totalPrice || 0),
-        0
-      ) || 0}
-    </p>
-  </div>
-</div>
     </div>
   );
 }

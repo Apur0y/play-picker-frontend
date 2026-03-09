@@ -17,6 +17,7 @@ import OrderDetails from "@/conponents/dashboard/OrderDetails";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<"profile" | "orders" | "details">("orders");
+  const [selectedOrder, setSelectedOrder] = useState("");
   const user = useAppSelector((state) => state.auth?.user);
   const router = useRouter();
   const dispatch =useDispatch();
@@ -86,8 +87,8 @@ const handleLogout = async () => {
           {/* Main Content */}
           <div className="lg:col-span-3 md:ml-5 xl:mx-0">
             {activeTab === "profile" && <ProfileManagement />}
-            {activeTab === "orders" && <OrderManagement activeTab={activeTab} setActiveTab={setActiveTab} />}
-            {activeTab === "details" && <OrderDetails activeTab={activeTab} setActiveTab={setActiveTab} />}
+            {activeTab === "orders" && <OrderManagement activeTab={activeTab} setActiveTab={setActiveTab} setSelectedOrder={setSelectedOrder} />}
+            {activeTab === "details" && <OrderDetails activeTab={activeTab} setActiveTab={setActiveTab} selectedOrder={selectedOrder} />}
           </div>
         </div>
 
