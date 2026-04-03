@@ -1,5 +1,5 @@
 "use client";
-import { useGetAllSportsQuery } from "@/redux/api/sports/sportsApis";
+import { useGetAllSportsQuery, useGetYoutubeVideosQuery } from "@/redux/api/sports/sportsApis";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useMemo, Suspense } from "react";
@@ -27,7 +27,8 @@ function SportsPageContent() {
   const [selectedSport, setSelectedSport] = useState(sportParam || "All");
   const router = useRouter();
 
-  const { data: allsports } = useGetAllSportsQuery({});
+  // const { data: allsports } = useGetAllSportsQuery({});
+  const { data: allsports } = useGetYoutubeVideosQuery({})
   console.log(allsports);
 
   const videos: Video[] = useMemo(
@@ -134,12 +135,12 @@ function SportsPageContent() {
                 >
                   <Image
                     src={
-                      "https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?w-200"
+                     video.thumbnail
                     }
                     // || video.thumbnail
                     alt={video.title}
-                    height={700}
-                    width={700}
+                    height={200}
+                    width={200}
                     className="w-24 h-16 rounded-lg object-cover"
                   />
 

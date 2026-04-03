@@ -9,6 +9,11 @@ export const packagesApi = baseUrlApi.injectEndpoints({
       providesTags: ["Sports"],
     }),
 
+    getYoutubeVideos: builder.query({
+      query: () => "/sports/youtube",
+      providesTags: ["Sports"],
+    }),
+
 
     getSportsById: builder.query({
       query: (id) => `/sports/${id}`,
@@ -52,6 +57,6 @@ export const {
   useCreateSportMutation,
   useDeleteSportsMutation,
   useUpdateSportsMutation,
-  useGetSportsByIdQuery
- 
+  useGetSportsByIdQuery,
+ useGetYoutubeVideosQuery
 } = packagesApi;
