@@ -10,6 +10,8 @@ type Video = {
   title: string;
   thumbnail: string;
   videoUrl: string;
+    description:string;
+
 };
 
 type Sport = {
@@ -18,6 +20,7 @@ type Sport = {
   title: string;
   thumbnail: string;
   src: string;
+  description:string;
 };
 
 function SportsPageContent() {
@@ -38,7 +41,8 @@ function SportsPageContent() {
         type: item.type, // "basketball", "lacrosse"
         title: item.title,
         thumbnail: item.thumbnail,
-        videoUrl: item.src, // mp4 or embed url
+        videoUrl: item.src, 
+        description:item.description
       })) ?? [],
     [allsports],
   );
@@ -94,7 +98,7 @@ function SportsPageContent() {
           <h2 className="text-2xl font-semibold  mt-4">
             {currentVideo?.title}
           </h2>
-          <p className=" mt-1">{currentVideo?.type}</p>
+          <p className=" mt-1">{currentVideo?.description}</p>
         </div>
 
         {/* Right Side - Suggested Videos */}
