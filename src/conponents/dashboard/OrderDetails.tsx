@@ -10,6 +10,7 @@ interface DetailsNavProps {
 export default function OrderDetails({
   setActiveTab,
   selectedOrder,
+
 }: DetailsNavProps) {
   const { data: orderDetails, isLoading, isError } =
     useGetSingleOrderQuery(selectedOrder);

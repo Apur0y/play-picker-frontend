@@ -88,7 +88,7 @@ const handleLogout = async () => {
           <div className="lg:col-span-3 md:ml-5 xl:mx-0">
             {activeTab === "profile" && <ProfileManagement />}
             {activeTab === "orders" && <OrderManagement activeTab={activeTab} setActiveTab={setActiveTab} setSelectedOrder={setSelectedOrder} />}
-            {activeTab === "details" && <OrderDetails activeTab={activeTab} setActiveTab={setActiveTab} selectedOrder={selectedOrder} />}
+            {activeTab === "details" && <OrderDetails  setActiveTab={setActiveTab} selectedOrder={selectedOrder} />}
           </div>
         </div>
 
