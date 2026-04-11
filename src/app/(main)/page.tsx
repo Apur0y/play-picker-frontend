@@ -23,13 +23,10 @@ export default function HomePage() {
       
       <Banner />
       <FootballInfo/>
+      <OurWorks/>
+      <Container className="mx-auto my-16"> <WorldClientMap/> </Container>
       <WhoWeAre/>
       <WhatWeDo/>
-      <OurWorks/>
-      <Container className="mx-auto">
-
-      <WorldClientMap/>
-      </Container>
       <Packages />
      <AboutUs/>
      <ProcessSection/> 
