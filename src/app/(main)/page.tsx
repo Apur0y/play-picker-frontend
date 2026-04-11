@@ -13,6 +13,8 @@ import Banner from "@/conponents/home/Banner";
 import FootballInfo from "@/conponents/home/Football";
 import WhoWeAre from "@/conponents/home/WhoWeAre";
 import WhatWeDo from "@/conponents/home/WhatWeDo";
+import WorldClientMap from "@/conponents/home/WorldCover";
+import Container from "@/conponents/shared/Container";
 
 
 export default function HomePage() {
@@ -24,6 +26,10 @@ export default function HomePage() {
       <WhoWeAre/>
       <WhatWeDo/>
       <OurWorks/>
+      <Container className="mx-auto">
+
+      <WorldClientMap/>
+      </Container>
       <Packages />
      <AboutUs/>
      <ProcessSection/> 
