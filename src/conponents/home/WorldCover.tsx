@@ -266,7 +266,7 @@ function Tooltip({ x, y, countryName, data }: TooltipProps) {
         ) : (
           <p className="text-xs text-slate-500">No orders yet</p>
         )}
-        {/* arrow */}
+        
         <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-[#0f1623]/95" />
       </div>
     </div>
